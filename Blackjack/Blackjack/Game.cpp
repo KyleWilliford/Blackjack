@@ -4,6 +4,15 @@
 	Blackjack [WIP]
 */
 
+/*	
+	TODO:
+	Flip ace values
+	Double feature
+	Split
+	Insurance
+*/
+
+
 #include <iostream>
 #include "Game.h"
 
@@ -290,7 +299,7 @@ bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 		player.updatePurse(player.getBet());
 		return true;
 	}
-	else if(playerStands && dealerStands){	//Final check for win, lose, tie after player and dealer have finished moving (both player "stand")
+	else if(playerStands && dealerStands){	//Final check for win, lose, tie after player and dealer have finished moving (both players "stand")
 		if(playerHand == dealerHand){	//Tie
 			displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
 			std::cout << "You and the dealer have the same card values. Push." << std::endl;
@@ -352,7 +361,6 @@ bool Game::gameOver(){
 /*
 	@cleanupRound
 	Clean the player & dealer hands in anticipation of a new round.
-	Calls initRound to initialize a new round of play.
 */
 void Game::cleanupRound(){
 	playerStands = false;
