@@ -1,6 +1,8 @@
 LEGAL NOTICE:
 This is a work in progress. This is not intended for commercial release.
 
-Please do not use this code in any of your projects. Ask me for permission if you wish to contribute (I prefer ideas rather than code contributions, if any).
+Please do not use this code in any of your projects. Ask me for permission if you wish to contribute (I prefer ideas rather than code contributions, if any*).
 
-I hereby reserve all rights as to the use and/or distribution of this code, which is under my sole ownership.
+I hereby reserve all rights as to the use and/or distribution of this code, which is under my sole ownership. Feel free to play the game though.
+
+*The point of this project is to improve my programming skills through practice, and to create something fun while doing so. Allowing code contributions is counter-productive to this goal.
