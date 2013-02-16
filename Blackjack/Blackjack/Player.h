@@ -16,9 +16,10 @@
 class Player{
 
 public:
-	Player();
-	Player(int);
-	Player(char);	//Constructor for dealer instance (no wallet instantiation)
+	explicit Player();		//Constructor for "player" instance with default wallet size (500)
+	explicit Player(int);	//Constructor for "player" instance with parameterized waller size
+	explicit Player(char);	//Constructor for "dealer" instance (no wallet instantiation)
+	//explicit Player(std::vector<FACE> hand_dud, std::vector<std::string> names_dud){this->hand = hand_dud; this->names = names_dud;};	//UnitTestCardDisplay
 	virtual ~Player();
 	void hit(Deck&);
 	int handSize();

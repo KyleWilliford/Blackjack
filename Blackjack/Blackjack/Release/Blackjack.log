@@ -1,4 +1,4 @@
-﻿Build started 2/10/2013 10:31:35 PM.
+﻿Build started 2/16/2013 12:21:41 AM.
      1>Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Release\Blackjack.lastbuildstate".
@@ -18,7 +18,7 @@
          Release\Player.obj
          Release\Wallet.obj
          Generating code
-     1>c:\users\kyle\blackjack\blackjack\blackjack\game.cpp(359): warning C4715: 'Game::gameOver' : not all control paths return a value
+     1>c:\users\kyle\blackjack\blackjack\blackjack\game.cpp(362): warning C4715: 'Game::gameOver' : not all control paths return a value
          Finished generating code
          Blackjack.vcxproj -> C:\Users\Kyle\Blackjack\Blackjack\Release\Blackjack.exe
        Manifest:
@@ -30,4 +30,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.42
+Time Elapsed 00:00:03.55

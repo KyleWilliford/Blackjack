@@ -15,8 +15,8 @@
 class Deck{
 
 public:
-	Deck();
-	Deck(int);
+	explicit Deck();
+	explicit Deck(int);
 	virtual ~Deck();
 	void shuffle();
 	void build();

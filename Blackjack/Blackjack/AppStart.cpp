@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include "Game.h"
-#include "Wallet.h"
 
 #define NUMBER_OF_DECKS 6
 #define WALLET_SIZE 30000

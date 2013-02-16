@@ -79,6 +79,9 @@ void Game::displayCards(){
 		if(i == 1 && !dealerStands && !playerStands){ //Hide second drawn card
 			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
 		}
+		else if(i == 1 && !playerStands){ //Hide second drawn card
+			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
+		}
 		else{
 			std::cout << "\nCard " << (i+1) << ": " << dealer.displayCard(i);
 		}
@@ -230,7 +233,7 @@ void Game::dealerAI(){
 */
 void Game::displayEndOfRound(const bool *p_blackjack, const bool *d_blackjack, const int *playerHand, const int *dealerHand){
 	std::cout << "\n!---END OF ROUND " << round_counter << "---!\n";
-	playerStands, dealerStands = true;
+	playerStands = true, dealerStands = true;
 	displayCards();
 	std::cout << "\nYour hand total: " << *playerHand << std::endl;
 	std::cout << "Dealer hand total: " << *dealerHand << std::endl;

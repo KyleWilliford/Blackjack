@@ -11,8 +11,8 @@
 class Wallet{
 
 public:
-	Wallet();
-	Wallet(int);
+	explicit Wallet();
+	explicit Wallet(int);
 	virtual ~Wallet();
 	void bettingMenu();
 	void ante();
@@ -22,7 +22,6 @@ public:
 
 private:
 	int purse, bet;
-
 };
 
 #endif 

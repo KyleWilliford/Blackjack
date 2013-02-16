@@ -1,0 +1,5 @@
+build 3 (2/15/13):
+
++ Fixed second dealer card from being shown after the dealer stands, but the player has not. (bug)
+- Modified UI spacing to make changes between rounds more noticeable
++ Added more descriptive comments to codebase

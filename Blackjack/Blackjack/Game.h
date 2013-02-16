@@ -14,9 +14,10 @@
 class Game{
 
 public:
-	Game();
-	Game(int);
-	Game(int, int);
+	explicit Game();
+	explicit Game(int);
+	explicit Game(int, int);
+	//explicit Game(Player p, Player d){this->player = p; this->dealer = d; playerStands = false; dealerStands = true; displayCards();};	//UnitTestCardDisplay
 	virtual ~Game();
 	void gameMenu();
 	bool gameOver();
