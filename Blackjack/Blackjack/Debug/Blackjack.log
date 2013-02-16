@@ -1,7 +1,7 @@
-﻿Build started 2/16/2013 12:22:00 AM.
+﻿Build started 2/16/2013 3:43:00 AM.
      1>Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" on node 2 (rebuild target(s)).
-     1>PrepareForBuild:
-         Creating directory "C:\Users\Kyle\Blackjack\Blackjack\Debug\".
+     1>_PrepareForClean:
+         Deleting file "Debug\Blackjack.lastbuildstate".
        InitializeBuildStatus:
          Creating "Debug\Blackjack.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -12,7 +12,6 @@
          Deck.cpp
          AppStart.cpp
          Generating Code...
-     1>c:\users\kyle\blackjack\blackjack\blackjack\game.cpp(362): warning C4715: 'Game::gameOver' : not all control paths return a value
        ManifestResourceCompile:
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\Blackjack.exe.embed.manifest.res" Debug\Blackjack_manifest.rc 
        Link:
@@ -41,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.31
+Time Elapsed 00:00:04.86

@@ -12,27 +12,64 @@
 	Insurance
 */
 
-
 #include <iostream>
 #include "Game.h"
 
-Game::Game() : playerStands(false), dealerStands(false), playAgain(true), player(), dealer('y'), deck(), round_counter(1){
+bool Game::playAgain = false;
+
+/*
+	@gameMenu
+	Controls a round of blackjack, dealer AI calls, card display calls, and player menu display, and input parse calls
+*/
+const void Game::gameMenu(){
+	int turn_counter = 1;
+	bool round_over = initRound();
+	while(round_over == false){
+		std::cout << "\n\n!---TURN " << turn_counter << " START---!\n\n";
+		std::cout << "\nWallet: " << player.getPurse();
+		std::cout << "\nBet amount: " << player.getBet();
+		displayCards();
+
+		//flipAces(); //Untested feature to switch ace card values between 1 and 11
+
+		//Display menu
+		if(playerStands == false){
+			std::cout << "\n1. Hit" << std::endl;
+			std::cout << "2. Stand\n" << std::endl;
+			gameChoice();
+		}
+
+		round_over = checkWinConditions(false, false);
+		if(round_over){
+			gameOver();
+		}
+		else{
+			dealerAI();	//Dealer's turn
+			round_over = checkWinConditions(false, false);	//Check if dealer has busted or tied player at 21
+			if(round_over){
+				gameOver();
+			}
+		}
+		++turn_counter;
+	}
 }
 
-Game::Game(int deckCount) : playerStands(false), dealerStands(false), playAgain(true), player(), dealer('y'), deck(deckCount), round_counter(1){
-}
-
-Game::Game(int deckCount, int walletSize) : playerStands(false), dealerStands(false), playAgain(true), player(walletSize), dealer('y'), deck(deckCount), round_counter(1){
-}
-
-Game::~Game(){
+/*
+	@purseNotEmpty
+	Returns true iff the player has money left to bet.
+*/
+const bool Game::purseNotEmpty(){
+	if(player.getPurse() == 0){
+		return false;
+	}
+	return true;
 }
 
 /*
 	@initRound
 	Iinitialize a new round of cards using the current deck of cards.
 */
-bool Game::initRound(){
+const bool Game::initRound(){
 	//Draw two cards for the player and dealer
 	placeBet();
 	for(int i = 0; i < 2; ++i){
@@ -64,11 +101,20 @@ bool Game::initRound(){
 }
 
 /*
+	@placeBet
+	Calls Player::placeBet, asking the user to ante up from their Wallet
+*/
+const void Game::placeBet(){
+	std::cout << "\nBetting wallet: " << player.getPurse();
+	player.placeBet();
+}
+
+/*
 	@displayCards
 	Display the cards in each player's hand.
 	Dealer's second card is hidden until the dealer stands (or the end of the round).
 */
-void Game::displayCards(){
+const void Game::displayCards(){
 	//Display card names
 	std::cout << "\n\nYour hand:";
 	for(int i = 0; i < player.handSize(); ++i){
@@ -82,6 +128,9 @@ void Game::displayCards(){
 		else if(i == 1 && !playerStands){ //Hide second drawn card
 			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
 		}
+		else if(i == 1 && !dealerStands){ //Hide second drawn card
+			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
+		}
 		else{
 			std::cout << "\nCard " << (i+1) << ": " << dealer.displayCard(i);
 		}
@@ -93,7 +142,7 @@ void Game::displayCards(){
 	@flipAces
 	[WIP]
 */
-void Game::flipAces(){
+const void Game::flipAces(){
 	int num_aces = checkAces();
 	if(num_aces != 0){
 		displayCards();
@@ -107,68 +156,10 @@ void Game::flipAces(){
 }
 
 /*
-	@gameMenu
-	Controls a round of blackjack, dealer AI calls, card display calls, and player menu display, and input parse calls
-*/
-void Game::gameMenu(){
-	int turn_counter = 1;
-	bool round_over = initRound();
-	while(round_over == false){
-		std::cout << "\n\n!---TURN " << turn_counter << " START---!\n\n";
-		std::cout << "\nWallet: " << player.getPurse();
-		std::cout << "\nBet amount: " << player.getBet();
-		displayCards();
-
-		//flipAces(); //Untested feature to switch ace card values between 1 and 11
-
-		//Display menu
-		if(playerStands == false){
-			std::cout << "\n1. Hit" << std::endl;
-			std::cout << "2. Stand\n" << std::endl;
-			std::cout << "Make your choice: ";
-			gameChoice();
-		}
-
-		round_over = checkWinConditions(false, false);
-		if(round_over){
-			gameOver();
-		}
-		else{
-			dealerAI();	//Dealer's turn
-			round_over = checkWinConditions(false, false);	//Check if dealer has busted or tied player at 21
-			if(round_over){
-				gameOver();
-			}
-		}
-		++turn_counter;
-	}
-}
-
-/*
-	@placeBet
-	Calls Player::placeBet, asking the user to ante up from their Wallet
-*/
-void Game::placeBet(){
-	std::cout << "\nBetting wallet: " << player.getPurse();
-	player.placeBet();
-}
-
-/*
-	@hasMoneyLeft
-	Returns true iff the player has money left to bet.
-*/
-bool Game::purseNotEmpty(){
-	if(player.getPurse() == 0){
-		return false;
-	}
-	return true;
-}
-
-/*
 	@checkAces
 	Check for the existence of aces within a player's hand.
 */
-int Game::checkAces(){
+const int Game::checkAces(){
 	return player.checkAce();
 }
 
@@ -176,9 +167,10 @@ int Game::checkAces(){
 	@gameChoice
 	Parse input from gameMenu for user game interactions.
 */
-void Game::gameChoice(){
+const void Game::gameChoice(){
 	bool valid = false;
 	do{
+		std::cout << "Make your choice: ";
 		std::string input;
 		std::cin >> input;
 		int choice = atoi(input.c_str());
@@ -193,11 +185,9 @@ void Game::gameChoice(){
 				valid = true;
 				break;
 			default:
+				std::cout << "Invalid Input.\n\n";
 				valid = false;
 				break;
-		}
-		if(!valid){
-			std::cout << "\n\nInvalid Input.\nMake your choice: ";
 		}
 	}while(!valid);
 }
@@ -208,7 +198,7 @@ void Game::gameChoice(){
 	The dealer will decide to hit or stand based on the value of its hand.
 	Stand on 17.
 */
-void Game::dealerAI(){
+const void Game::dealerAI(){
 	if(!dealerStands){
 		//Determine dealer's move
 		int dealerTotal = dealer.getHandTotal();
@@ -225,18 +215,18 @@ void Game::dealerAI(){
 
 /*
 	@displayEndOfRound
-	Displays relevant UI data for the end of the round.
+	Displays relevant game data for the end of the round.
 	Round #
 	Cards (with hidden card revealed)
 	Player hand total
 	Dealer hand total
 */
-void Game::displayEndOfRound(const bool *p_blackjack, const bool *d_blackjack, const int *playerHand, const int *dealerHand){
+const void Game::displayEndOfRound(const bool p_blackjack, const bool d_blackjack, const int playerHand, const int dealerHand){
 	std::cout << "\n!---END OF ROUND " << round_counter << "---!\n";
 	playerStands = true, dealerStands = true;
 	displayCards();
-	std::cout << "\nYour hand total: " << *playerHand << std::endl;
-	std::cout << "Dealer hand total: " << *dealerHand << std::endl;
+	std::cout << "\nYour hand total: " << playerHand << std::endl;
+	std::cout << "Dealer hand total: " << dealerHand << std::endl;
 }
 
 /*
@@ -244,7 +234,7 @@ void Game::displayEndOfRound(const bool *p_blackjack, const bool *d_blackjack, c
 	Checks the player's and dealer's hands against all win, lose, and tie conditions.
 	p_blackjack and d_blackjack are values representing whether or not a blackjack was achieve on the first two card draws of the round.
 */
-bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
+const bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 	int playerHand = player.getHandTotal();
 	int dealerHand = dealer.getHandTotal();
 	if(p_blackjack){
@@ -259,19 +249,19 @@ bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 
 	//Check for blackjack on first two card draws
 	if(p_blackjack && d_blackjack){		//Player and dealer both have blackjack.
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "You and the dealer both drew blackjack. Push." << std::endl;
 		player.updatePurse(player.getBet());
 		return true;
 	}
 	else if(!p_blackjack && d_blackjack){	//Dealer has blackjack
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "Dealer got a Blackjack! You lost." << std::endl;
 		player.updatePurse(0);
 		return true;
 	}
 	else if(p_blackjack && !d_blackjack){	//Player has blackjack
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "You got a Blackjack! Payout = 3:2" << std::endl;
 		player.updatePurse(player.getBet() + (player.getBet() * 3 / 2));
 		return true;
@@ -279,44 +269,44 @@ bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 
 	//Other win and lose conditions
 	if(playerHand > 21 && dealerHand > 21){	//Player and dealer hands > 21
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "You and the dealer both bust. Push." << std::endl;
 		player.updatePurse(player.getBet());
 		return true;
 	}
 	else if(playerHand > 21){				//Player hand > 21
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "You Bust." << std::endl;
 		player.updatePurse(0);
 		return true;
 	}
 	else if(dealerHand > 21){				//Dealer hand > 21
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "Dealer Bust. You won!" << std::endl;
 		player.updatePurse(player.getBet() * 2);
 		return true;
 	}
 	else if(playerHand == 21 && dealerHand == 21){	//Player and dealer hands = 21
-		displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+		displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 		std::cout << "You and the dealer both have 21. Push." << std::endl;
 		player.updatePurse(player.getBet());
 		return true;
 	}
 	else if(playerStands && dealerStands){	//Final check for win, lose, tie after player and dealer have finished moving (both players "stand")
 		if(playerHand == dealerHand){	//Tie
-			displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+			displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 			std::cout << "You and the dealer have the same card values. Push." << std::endl;
 			player.updatePurse(player.getBet());
 			return true;
 		}
 		else if(playerHand < dealerHand){	//Player loses
-			displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+			displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 			std::cout << "You lost!" << std::endl;
 			player.updatePurse(0);
 			return true;
 		}
 		else if(playerHand > dealerHand){	//Player wins
-			displayEndOfRound(&p_blackjack, &d_blackjack, &playerHand, &dealerHand);
+			displayEndOfRound(p_blackjack, d_blackjack, playerHand, dealerHand);
 			std::cout << "You won!" << std::endl;
 			player.updatePurse(player.getBet() * 2);
 			return true;
@@ -330,13 +320,18 @@ bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 	Prompt for a user response to continue playing. 
 	Reset a round of blackjack, or exit.
 */
-bool Game::gameOver(){
+const bool Game::gameOver(){
 	bool valid = false;
 	do{
 		std::cout << "\nPlay Again? (Y/N): ";
-		char choice;
-		std::cin >> choice;
-		switch(choice){
+		std::string input;
+		std::cin >> input;
+		if(input[1] != '\0'){
+			valid = false;
+			std::cout << "\nInvalid Input.\n";
+			continue;
+		}
+		switch(input[0]){
 		case 'y':
 			valid = true;
 			playAgain = true;
@@ -359,13 +354,14 @@ bool Game::gameOver(){
 			break;
 		}
 	}while(!valid);
+	return valid;
 }
 
 /*
 	@cleanupRound
 	Clean the player & dealer hands in anticipation of a new round.
 */
-void Game::cleanupRound(){
+const void Game::cleanupRound(){
 	playerStands = false;
 	dealerStands = false;
 	player.resetHand();

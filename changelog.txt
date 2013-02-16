@@ -1,3 +1,15 @@
+build 4 (2/16/13):
++ Added explicit keyword to constructor definitions where necessary (Effective C++ practice)
++ Changed preprocessor macros to compiler const definitions in AppStart.cpp and Deck.cpp (Effective C++ practice)
++ Added const keyword where necessary (Effective C++ practice)
+- Prevented user from entering a longer than intended string to get a new game/exit option (i.e. entering "NY" in the prompt would read as "N," and exit the program). 
+This behavior now only checks the first element of the input string, and tells the user the string is invalid if they entered more than just 'y'/ 'n', etc.
+- Removed unused variables and function prototypes.
++ Added loop to main menu to prevent exiting when invalid input is entered by the user.
+- Moved many one-line and two-line function implementations to inline implementations inside of the respective header files
+- Changed shuffle time limit to 1.0 second
++ Added indicator of how many card shuffle actions were performed within the shuffle time limit
+
 build 3 (2/15/13):
 
 + Fixed second dealer card from being shown after the dealer stands, but the player has not. (bug)

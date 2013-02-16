@@ -11,16 +11,23 @@
 class Wallet{
 
 public:
-	explicit Wallet();
-	explicit Wallet(int);
-	virtual ~Wallet();
-	void bettingMenu();
-	void ante();
-	int getBet(){int rtr = bet; return rtr;};
-	int getPurse(){int rtr = purse; return rtr;};
-	void updatePurse(int bet){purse += bet;};
+	explicit Wallet() : purse(500), bet(0){ };	//default ctor
+
+	explicit Wallet(const int amount) : purse(amount), bet(0){ };	//ctor
+
+	virtual ~Wallet(){ };	//dtor
+
+	const void bettingMenu();
+
+	//Function prototypes with inline implementations
+	const int getBet(){ int rtr = bet; return rtr; };		//Return a copy of this Wallet's current bet
+
+	const int getPurse(){ int rtr = purse; return rtr; };	//Return a copy of the value of this Wallet's purse
+
+	const void updatePurse(int bet){ purse += bet; };	//Update the purse with the bet amount
 
 private:
+	//Variables
 	int purse, bet;
 };
 

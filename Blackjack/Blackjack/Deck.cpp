@@ -9,26 +9,14 @@
 #include <time.h>
 #include "Deck.h"
 
-#define SHUFFLE_TIME 3
-
-Deck::Deck() : deckCount(1), deckSize(deckCount * 52){
-	build();
-	shuffle();
-}
-
-Deck::Deck(int deckCount) : deckCount(deckCount), deckSize(Deck::deckCount * 52){
-	build();
-	shuffle();
-}
-
-Deck::~Deck(){
-}
+const double Deck::ShuffleTime = 1.0;
 
 /*
 	@shuffle
 	Shuffle the card pack.
 */
-void Deck::shuffle(){
+const void Deck::shuffle(){
+	int shuffle_counter = 0;
 	std::cout << "\nShuffling the Deck, Please Wait... " << std::endl;
 
 	time_t start, check;
@@ -36,8 +24,9 @@ void Deck::shuffle(){
 	double elapsed = 0;
 
 	//Shuffles by choosing random cards in the pack to swap places with
-	//Shuffles continuously for a number of seconds determined by SHUFFLE_TIME definition
-	while(elapsed < SHUFFLE_TIME){
+	//Shuffles continuously for a number of seconds determined by ShuffleTime constant value
+	//Tests indicate approximately 1 to 5 million swaps / sec with a 3.0 GHz processor. Faster CPU and RAM = fewer swap actions.
+	while(elapsed < ShuffleTime){
 		int shuffleCardpos1 = rand() % deckSize;	//Find random place in the vector to swap with
 		int shuffleCardpos2 = rand() % deckSize;	//Find random place in the vector to swap with
 
@@ -55,14 +44,16 @@ void Deck::shuffle(){
 		
 		time(&check);
 		elapsed = difftime(check, start);
+		++shuffle_counter;
 	}
+	std::cout << "\nShuffled cards " << shuffle_counter << " times in " << ShuffleTime << " second(s)!\n";
 }
 
 /*
 	@build
 	Build a new deck of cards based on the deckCount.
 */
-void Deck::build(){
+const void Deck::build(){
 	deck.clear();
 	names.clear();
 	for(int i = 0; i < deckCount; ++i){
@@ -127,7 +118,7 @@ void Deck::build(){
 	@draw
 	Draws a card from the back of the deck vector.
 */
-FACE Deck::draw(){
+const FACE Deck::draw(){
 	if(deck.size() <= 12){
 		std::cout << "\n\nDeck low on cards. Rebuilding.\n";
 		build();
@@ -143,7 +134,7 @@ FACE Deck::draw(){
 	Takes the name of a card from the names string vector 
 	(name matches the value in the deck vector that is also drawn when this is called)
 */
-std::string Deck::drawName(){
+const std::string Deck::drawName(){
 	std::string cardDrawn = names.back();
 	names.pop_back();
 	return cardDrawn;
