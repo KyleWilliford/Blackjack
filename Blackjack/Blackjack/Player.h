@@ -20,12 +20,7 @@ public:
 
 	explicit Player(const int, const bool);	//Constructor for "player" instance with parameterized wallet size
 
-	//explicit Player(std::vector<FACE> hand_dud, std::vector<std::string> names_dud){this->hand = hand_dud; this->names = names_dud;};	//UnitTestCardDisplay
-
 	virtual ~Player(){};	//dtor
-
-	//TEST
-	void hit();
 
 	const void hit(Deck&);
 
@@ -50,7 +45,7 @@ public:
 
 	const int getHandSize() const { return hand.size(); };	//Return the size of the hand vector from this instance
 
-	const int getHandTotal()const { int rtr = handTotal; return rtr; };	//Return a copy of the hand total value from this instance
+	const int getHandTotal()const { return handTotal; };	//Return a copy of the hand total value from this instance
 
 	const void resetHand(){ hand.resize(0); names.resize(0); handTotal = 0; };	//Reset the hand, names, and handTotal vectors, and variable, respectively
 

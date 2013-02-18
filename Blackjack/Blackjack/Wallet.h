@@ -20,9 +20,9 @@ public:
 	const void bettingMenu();
 
 	//Function prototypes with inline implementations
-	const int getBet() const { int rtr = bet; return rtr; };		//Return a copy of this Wallet's current bet
+	const int getBet() const { return bet; };		//Return this Wallet's current bet amount
 
-	const int getPurse() const { int rtr = purse; return rtr; };	//Return a copy of the value of this Wallet's purse
+	const int getPurse() const { return purse; };	//Return the value of this Wallet's purse
 
 	const void updatePurse(int bet) { purse += bet; };	//Update the purse with the bet amount
 

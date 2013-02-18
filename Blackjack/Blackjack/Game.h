@@ -18,8 +18,6 @@ public:
 
 	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), player(walletSize, false), dealer(0, true), deck(deckCount), round_counter(1){ };	//ctor
 
-	//explicit Game(Player p, Player d){this->player = p; this->dealer = d; playerStands = false; dealerStands = true; displayCards();};	//UnitTestCardDisplay
-
 	virtual ~Game(){ };	//dtor
 
 	//Public interface function prototypes

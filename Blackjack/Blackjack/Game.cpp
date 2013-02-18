@@ -215,7 +215,7 @@ const void Game::gameChoice(){
 			std::cin >> input;
 			int choice = atoi(input.c_str());
 			if(choice > num_choices){
-				std::cout << "\nInvalid Input.\n\n";
+				std::cout << "\nInvalid Input.";
 				valid = false;
 				continue;
 			}
