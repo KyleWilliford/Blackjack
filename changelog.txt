@@ -1,3 +1,12 @@
+build 5 (2/18/13):
+- Modified some class methods to be bitwise constant
++ Completed flip aces feature (can flip aces from 1 to 11 at will prior to hand total and win/lose conditions evaluation)
++ Implemented a method (Game::flipAllAces) to automatically convert Ace (1) cards to Ace (11) cards when a two-card Blackjack occurs for the player, dealer, or both.
++ Fixed an index out of range bug for input validation in the "Play AGain (Y/N)?:" menu (Game::gameOver).
+- Modified UI to better represent the flow of the game to the user.
++ Added conditional in Game::gameChoice to force the user to stand on 21 after hitting.
+TODO: Allow dealer AI to flip aces in their hand
+
 build 4 (2/16/13):
 + Added explicit keyword to constructor definitions where necessary (Effective C++ practice)
 + Changed preprocessor macros to compiler const definitions in AppStart.cpp and Deck.cpp (Effective C++ practice)

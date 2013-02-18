@@ -6,7 +6,6 @@
 
 /*	
 	TODO:
-	Flip ace values
 	Double feature
 	Split
 	Insurance
@@ -25,26 +24,34 @@ const void Game::gameMenu(){
 	int turn_counter = 1;
 	bool round_over = initRound();
 	while(round_over == false){
-		std::cout << "\n\n!---TURN " << turn_counter << " START---!\n\n";
+		std::cout << "\n!---TURN " << turn_counter << " START---!\n";
 		std::cout << "\nWallet: " << player.getPurse();
 		std::cout << "\nBet amount: " << player.getBet();
-		displayCards();
 
-		//flipAces(); //Untested feature to switch ace card values between 1 and 11
+		gameChoice();
 
-		//Display menu
-		if(playerStands == false){
-			std::cout << "\n1. Hit" << std::endl;
-			std::cout << "2. Stand\n" << std::endl;
-			gameChoice();
+		if(player.getHandTotal() > 21){
+			if(checkNumAces() != 0){
+				for(int i = 0; i < player.getHandSize(); ++i){
+					if(player.displayCardVal(i) == VERSA_ACE){
+						player.changeAce(player.displayCardVal(i), i);
+						playerStands = false;
+						displayCards(false);
+						std::cout << "\n\nWARNING: Your current hand is greater than 21, but at least one ace card with a value of 11 was detected.\nYour ace card with value of 11 has been reverted to 1.\nYou can also hit again even if you chose to stand with a hand greater than 21.";
+						break;
+					}
+				}
+			}
 		}
 
 		round_over = checkWinConditions(false, false);
 		if(round_over){
+			std::cout << "\n!---END OF TURN " << turn_counter << "---!\n";
 			gameOver();
 		}
 		else{
 			dealerAI();	//Dealer's turn
+			std::cout << "\n!---END OF TURN " << turn_counter << "---!\n";
 			round_over = checkWinConditions(false, false);	//Check if dealer has busted or tied player at 21
 			if(round_over){
 				gameOver();
@@ -58,7 +65,7 @@ const void Game::gameMenu(){
 	@purseNotEmpty
 	Returns true iff the player has money left to bet.
 */
-const bool Game::purseNotEmpty(){
+const bool Game::purseNotEmpty() const {
 	if(player.getPurse() == 0){
 		return false;
 	}
@@ -78,12 +85,12 @@ const bool Game::initRound(){
 	}
 
 	//Display round #
-	std::cout << "\n\n!---ROUND " << round_counter << " START---!\n";
+	std::cout << "\n\n!---ROUND " << round_counter << " START---!";
 
 	//Check if cards drawn form a blackjack (21 = Ace + face card or ten card)
 	bool blackjack = false;
-	int playerAceCount = player.checkAce();
-	int dealerAceCount = dealer.checkAce();
+	int playerAceCount = player.checkForAces();
+	int dealerAceCount = dealer.checkForAces();
 	if(playerAceCount == 1 && dealerAceCount == 1 && player.getHandTotal() == 11 && dealer.getHandTotal() == 11){
 		blackjack = checkWinConditions(true, true);
 	}
@@ -114,25 +121,27 @@ const void Game::placeBet(){
 	Display the cards in each player's hand.
 	Dealer's second card is hidden until the dealer stands (or the end of the round).
 */
-const void Game::displayCards(){
+const void Game::displayCards(const bool displayDealerHand) const {
 	//Display card names
 	std::cout << "\n\nYour hand:";
 	for(int i = 0; i < player.handSize(); ++i){
 		std::cout << "\nCard " << (i+1) << ": " << player.displayCard(i);
 	}
-	std::cout << "\n\nDealer's hand:";
-	for(int i = 0; i < dealer.handSize(); ++i){
-		if(i == 1 && !dealerStands && !playerStands){ //Hide second drawn card
-			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
-		}
-		else if(i == 1 && !playerStands){ //Hide second drawn card
-			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
-		}
-		else if(i == 1 && !dealerStands){ //Hide second drawn card
-			std::cout << "\nCard " << (i+1) << ": face down (hidden).";
-		}
-		else{
-			std::cout << "\nCard " << (i+1) << ": " << dealer.displayCard(i);
+	if(displayDealerHand){
+		std::cout << "\n\nDealer's hand:";
+		for(int i = 0; i < dealer.handSize(); ++i){
+			if(i == 1 && !dealerStands && !playerStands){ //Hide second drawn card
+				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
+			}
+			else if(i == 1 && !playerStands){ //Hide second drawn card
+				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
+			}
+			else if(i == 1 && !dealerStands){ //Hide second drawn card
+				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
+			}
+			else{
+				std::cout << "\nCard " << (i+1) << ": " << dealer.displayCard(i);
+			}
 		}
 	}
 	std::cout << "\n";
@@ -140,27 +149,47 @@ const void Game::displayCards(){
 
 /*
 	@flipAces
-	[WIP]
+	Allow the player to change the value of ace cards.
 */
 const void Game::flipAces(){
-	int num_aces = checkAces();
-	if(num_aces != 0){
-		displayCards();
-		std::cout << "\nYou have one or more ace cards whose value can be modified (to 1 or 11).\nEnter the card number for an ace that you would like to flip (or 0 to cancel): ";
-		int choice;
-		std::cin >> choice;
-		if(choice <= player.getHandSize() && choice >= 1){
-			player.changeAce(player.displayCardVal(choice-1), 1);
+	do{
+		displayCards(false);	//Don't display the dealer's hand
+		std::cout << "\nYou have one or more ace cards whose value can be modified (to 1 or 11). \n\nEnter the card number for an ace that you would like to flip (or -1 to cancel): ";
+		std::string input;
+		std::cin >> input;
+		int choice = atoi(input.c_str());
+		if(choice == -1){
+			break;
 		}
+		else if(choice <= 0 || choice > player.getHandSize()){
+			std::cout << "\nInvalid input.\n";
+			continue;
+		}
+		else if(choice >= 1 && choice <= player.getHandSize()){
+			int index = choice - 1;
+			player.changeAce(player.displayCardVal(index), index);
+		}
+	}while(true);
+}
+
+/*
+	@flipAllAces
+	Flip the value of all of the parameter player's ace cards.
+	Can be used for the dealer or player.
+	Used when a player has a blackjack (Ace + 10 value card on first two card draws).
+*/
+const void Game::flipAllAces(Player &player){
+	for(int i = 0; i < player.getHandSize(); ++i){
+		player.changeAce(player.displayCardVal(i), i);
 	}
 }
 
 /*
-	@checkAces
+	@checkForAcess
 	Check for the existence of aces within a player's hand.
 */
-const int Game::checkAces(){
-	return player.checkAce();
+const int Game::checkNumAces(){
+	return player.checkForAces();
 }
 
 /*
@@ -168,28 +197,51 @@ const int Game::checkAces(){
 	Parse input from gameMenu for user game interactions.
 */
 const void Game::gameChoice(){
-	bool valid = false;
-	do{
-		std::cout << "Make your choice: ";
-		std::string input;
-		std::cin >> input;
-		int choice = atoi(input.c_str());
-		std::cout << "\n";
-		switch(choice){
-			case 1:
-				player.hit(deck);
-				valid = true;
-				break;
-			case 2:
-				playerStands = true;
-				valid = true;
-				break;
-			default:
-				std::cout << "Invalid Input.\n\n";
+	if(!playerStands){
+		bool valid = false;
+		int num_choices = 2;
+		do{
+			displayCards(true);
+
+			//Display menu
+			std::cout << "\n1. Hit\n";
+			std::cout << "2. Stand\n";
+			if(checkNumAces() != 0){
+				num_choices = 3;
+				std::cout << "3. Change Ace Values\n";
+			}
+			std::cout << "\nMake your choice: ";
+			std::string input;
+			std::cin >> input;
+			int choice = atoi(input.c_str());
+			if(choice > num_choices){
+				std::cout << "\nInvalid Input.\n\n";
 				valid = false;
-				break;
-		}
-	}while(!valid);
+				continue;
+			}
+			switch(choice){
+				case 1:
+					player.hit(deck);
+					if(player.getHandTotal() == 21){	//Force player to stand on 21
+						playerStands = true;
+					}
+					valid = true;
+					break;
+				case 2:
+					playerStands = true;
+					valid = true;
+					break;
+				case 3:
+					flipAces();
+					valid = false;	//Don't immediately proceed to checkWinConditions with the new ace values
+					break;
+				default:
+					std::cout << "\nInvalid Input.\n\n";
+					valid = false;
+					break;
+			}
+		}while(!valid);
+	}
 }
 
 /*
@@ -203,11 +255,11 @@ const void Game::dealerAI(){
 		//Determine dealer's move
 		int dealerTotal = dealer.getHandTotal();
 		if(dealerTotal < 17){
-			std::cout << "\nDealer draws a card." << std::endl;
+			std::cout << "\nDealer draws a card.\n";
 			dealer.hit(deck);
 		}
 		else if(dealerTotal >= 17){
-			std::cout << "\nDealer stands." << std::endl;
+			std::cout << "\nDealer stands.\n";
 			dealerStands = true;
 		}
 	}
@@ -222,9 +274,8 @@ const void Game::dealerAI(){
 	Dealer hand total
 */
 const void Game::displayEndOfRound(const bool p_blackjack, const bool d_blackjack, const int playerHand, const int dealerHand){
-	std::cout << "\n!---END OF ROUND " << round_counter << "---!\n";
 	playerStands = true, dealerStands = true;
-	displayCards();
+	displayCards(true);
 	std::cout << "\nYour hand total: " << playerHand << std::endl;
 	std::cout << "Dealer hand total: " << dealerHand << std::endl;
 }
@@ -235,17 +286,19 @@ const void Game::displayEndOfRound(const bool p_blackjack, const bool d_blackjac
 	p_blackjack and d_blackjack are values representing whether or not a blackjack was achieve on the first two card draws of the round.
 */
 const bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
-	int playerHand = player.getHandTotal();
-	int dealerHand = dealer.getHandTotal();
 	if(p_blackjack){
-		playerHand += 10;	//+10 is temporary until I finish the flip aces feature
+		flipAllAces(player);
 	}
 	else if(d_blackjack){
-		dealerHand += 10;
+		flipAllAces(dealer);
 	}
 	else if(p_blackjack && d_blackjack){
-		playerHand, dealerHand += 10;
+		flipAllAces(player);
+		flipAllAces(dealer);
 	}
+
+	int playerHand = player.getHandTotal();
+	int dealerHand = dealer.getHandTotal();
 
 	//Check for blackjack on first two card draws
 	if(p_blackjack && d_blackjack){		//Player and dealer both have blackjack.
@@ -321,12 +374,13 @@ const bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackja
 	Reset a round of blackjack, or exit.
 */
 const bool Game::gameOver(){
+	std::cout << "\n!---END OF ROUND " << round_counter << "---!\n";
 	bool valid = false;
 	do{
 		std::cout << "\nPlay Again? (Y/N): ";
 		std::string input;
 		std::cin >> input;
-		if(input[1] != '\0'){
+		if(input.size() > 1){
 			valid = false;
 			std::cout << "\nInvalid Input.\n";
 			continue;

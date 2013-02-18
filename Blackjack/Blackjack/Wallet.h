@@ -20,11 +20,11 @@ public:
 	const void bettingMenu();
 
 	//Function prototypes with inline implementations
-	const int getBet(){ int rtr = bet; return rtr; };		//Return a copy of this Wallet's current bet
+	const int getBet() const { int rtr = bet; return rtr; };		//Return a copy of this Wallet's current bet
 
-	const int getPurse(){ int rtr = purse; return rtr; };	//Return a copy of the value of this Wallet's purse
+	const int getPurse() const { int rtr = purse; return rtr; };	//Return a copy of the value of this Wallet's purse
 
-	const void updatePurse(int bet){ purse += bet; };	//Update the purse with the bet amount
+	const void updatePurse(int bet) { purse += bet; };	//Update the purse with the bet amount
 
 private:
 	//Variables

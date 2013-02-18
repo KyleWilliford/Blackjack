@@ -25,8 +25,9 @@ public:
 	//Public interface function prototypes
 	const void gameMenu();
 
-	const bool purseNotEmpty();
+	const bool purseNotEmpty() const;
 
+	//Public static variable
 	static bool playAgain;
 
 private:
@@ -35,11 +36,13 @@ private:
 
 	const void placeBet();
 
-	const void displayCards();
+	const void displayCards(const bool) const;
 
 	const void flipAces();
 
-	const int checkAces();
+	const void flipAllAces(Player&);
+
+	const int checkNumAces();
 
 	const void gameChoice();
 

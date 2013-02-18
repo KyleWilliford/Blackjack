@@ -25,7 +25,7 @@ const void Player::hit(Deck &deck){
 	@checkAce
 	Looks for a number of aces in the player's hand.
 */
-const int Player::checkAce(){
+const int Player::checkForAces(){
 	int numAces = 0;
 	for(unsigned int i = 0; i < hand.size(); ++i){
 		if(hand[i] == ACE || hand[i] == VERSA_ACE){
@@ -36,7 +36,6 @@ const int Player::checkAce(){
 }
 
 /*
-	[WIP]
 	@changeAce
 	Swap between ace with value of 1 and ace with value of 11.
 */
