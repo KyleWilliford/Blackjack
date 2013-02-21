@@ -14,9 +14,9 @@
 class Game{
 
 public:
-	explicit Game() : playerStands(false), dealerStands(false), player(), dealer(true), deck(), round_counter(1){ };	//default ctor
+	explicit Game() : playerStands(false), dealerStands(false), doubledDown(false), player(), dealer(true), deck(), round_counter(1){ };	//default ctor
 
-	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1){ };	//ctor
+	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), doubledDown(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1){ };	//ctor
 
 	virtual ~Game(){ };	//dtor
 
@@ -29,6 +29,11 @@ public:
 	static bool playAgain;
 
 private:
+	const void displayChips() const { 
+		std::cout << "\nWallet: " << player.getPurse(); 
+		std::cout << "\nBet amount: " << player.getBet(); 
+	};
+
 	//Function prototypes
 	const bool initRound();
 
@@ -46,7 +51,7 @@ private:
 
 	const void dealerAI();
 
-	const void displayEndOfRound(const bool, const bool, const int, const int);
+	const void displayEndOfRound();
 	
 	const bool checkWinConditions(const bool, const bool);
 
@@ -55,7 +60,7 @@ private:
 	const void cleanupRound();
 	
 	//Variables
-	bool playerStands, dealerStands;
+	bool playerStands, dealerStands, doubledDown;
 	Player player, dealer;
 	Deck deck;
 	int round_counter;

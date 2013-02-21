@@ -1,3 +1,7 @@
+build 7 (2/21/13)
++ Added double down feature.
+- Refactored displayEndOfRound method to accept no parameters.
+
 build 6 (2/19/13):
 - Modified initialization lists to be more consistent with member variables.
 + Disallowed copy constructors in certain classes.

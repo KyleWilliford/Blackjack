@@ -43,6 +43,8 @@ public:
 
 	const int getBet() const { return wallet.getBet(); };	//Return a copy of the bet amount stored in Wallet
 
+	const void doubleBet() { wallet.doubleBet(); };	//Call the Wallet double bet method (double down)
+
 	const int getPurse() const { return wallet.getPurse(); };	//Return a copy of the purse amount stored in Wallet
 
 	const int getHandSize() const { return hand.size(); };	//Return the size of the hand vector from this instance

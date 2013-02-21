@@ -1,4 +1,4 @@
-﻿Build started 2/21/2013 3:27:41 PM.
+﻿Build started 2/21/2013 4:23:43 PM.
      1>Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" on node 2 (rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\Blackjack.lastbuildstate".
@@ -40,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.92
+Time Elapsed 00:00:04.77

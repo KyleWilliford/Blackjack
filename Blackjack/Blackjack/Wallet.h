@@ -22,6 +22,8 @@ public:
 	//Function prototypes with inline implementations
 	const int getBet() const { return bet; };		//Return this Wallet's current bet amount
 
+	const void doubleBet() { updatePurse(-bet); bet *= 2; };	//Double the bet (double down)
+
 	const int getPurse() const { return purse; };	//Return the value of this Wallet's purse
 
 	const void updatePurse(int bet) { purse += bet; };	//Update the purse with the bet amount
