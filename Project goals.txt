@@ -1,0 +1,8 @@
+prioritized list:
+Split hand feature
+Insurance (A blackjack game feature)
+Save game (to flat file)
+Load game (from flat file)
+Game options (Allow the user to set number of decks to use, dealer AI rules, starting wallet amount, etc.; perhaps "Vegas mode", "Atlantic City mode", etc.)
+Simulation & statistical mode (multi-threading?)
+Ambient music (have to find some quality non copyrighted music, or attempt to make some)

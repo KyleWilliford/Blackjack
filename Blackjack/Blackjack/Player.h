@@ -30,7 +30,7 @@ public:
 
 	const void changeAce(const FACE, const int);
 
-	//Public interface function prototypes defined with inline implementations
+	//Public interface functions defined with implementations
 	const int handSize() const { return hand.size(); };	//Return the size of this Player's hand (size of the hand vector)
 
 	const FACE displayCardVal(const int index) const { return hand.at(index); };	//Return the value of the card at the indexed location in the hand vector

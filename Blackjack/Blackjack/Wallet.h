@@ -19,7 +19,7 @@ public:
 
 	const void bettingMenu();
 
-	//Function prototypes with inline implementations
+	//Function prototypes defined with implementations
 	const int getBet() const { return bet; };		//Return this Wallet's current bet amount
 
 	const void doubleBet() { updatePurse(-bet); bet *= 2; };	//Double the bet (double down)

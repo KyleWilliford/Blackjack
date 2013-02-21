@@ -4,12 +4,6 @@
 	Blackjack [WIP]
 */
 
-/*	
-	TODO:
-	Split
-	Insurance
-*/
-
 #include <iostream>
 #include "Game.h"
 
@@ -303,7 +297,7 @@ const void Game::displayEndOfRound(){
 /*
 	@checkWinConditions
 	Checks the player's and dealer's hands against all win, lose, and tie conditions.
-	p_blackjack and d_blackjack are values representing whether or not a blackjack was achieve on the first two card draws of the round.
+	p_blackjack and d_blackjack are values representing whether or not a blackjack was achieved on the first two card draws of the round.
 */
 const bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackjack){
 	if(p_blackjack && d_blackjack){
