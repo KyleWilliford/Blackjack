@@ -16,9 +16,11 @@
 class Player{
 
 public:
-	explicit Player() : wallet(), handTotal(0){ };		//Constructor for "player" instance with default wallet size (500)
+	explicit Player() : wallet(), hand(), names(), handTotal(0){ };		//Constructor for "player" instance with default wallet size (500)
 
-	explicit Player(const int, const bool);	//Constructor for "player" instance with parameterized wallet size
+	explicit Player(const int walletSize) : wallet(walletSize), hand(), names(), handTotal(0) { };	//Constructor with parameterized wallet size (player)
+
+	explicit Player(const int, const bool) : hand(), names(), handTotal(0) { };	//Constructor with parameterized wallet size (dealer - skip wallet initialization)
 
 	virtual ~Player(){};	//dtor
 
@@ -50,11 +52,16 @@ public:
 	const void resetHand(){ hand.resize(0); names.resize(0); handTotal = 0; };	//Reset the hand, names, and handTotal vectors, and variable, respectively
 
 private:
-	//Variables
+	//Private variables and containers
 	Wallet wallet;
 	std::vector<FACE> hand;
 	std::vector<std::string> names;
 	int handTotal;
+
+	//Prevent copying
+	Player(const Player &);	//Copy constructor
+
+	Player& operator=(const Player &);	//Copy assignment operator
 };
 
 #endif 

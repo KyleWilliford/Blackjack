@@ -6,10 +6,6 @@
 
 #include "Player.h"
 
-Player::Player(const int walletSize, const bool thisIsADealer) : handTotal(0){
-	(!thisIsADealer) ? wallet = Wallet(walletSize) : wallet;
-}
-
 /*
 	@hit
 	Draw a card from the deck and add it to this Player's hand. 

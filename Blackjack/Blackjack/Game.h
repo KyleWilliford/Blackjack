@@ -55,10 +55,15 @@ private:
 	const void cleanupRound();
 	
 	//Variables
-	int round_counter;
+	bool playerStands, dealerStands;
 	Player player, dealer;
 	Deck deck;
-	bool playerStands, dealerStands;
+	int round_counter;
+
+	//Prevent copying
+	Game(const Game &);	//Copy constructor
+
+	Game& operator= (const Game &);	//Copy assignment constructor
 };
 
 #endif 

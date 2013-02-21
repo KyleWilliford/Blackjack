@@ -8,10 +8,10 @@
 #include <string>
 #include "Game.h"
 
-const int NumberOfDecks = 6;
-const int WalletSize = 30000;
+static const int NumberOfDecks = 6;
+static const int WalletSize = 30000;
 
-Game *game;
+static Game *game;
 
 /*
 	@mainMenu

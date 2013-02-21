@@ -29,6 +29,11 @@ public:
 private:
 	//Variables
 	int purse, bet;
+
+	//Prevent copying
+	Wallet(const Wallet &);	//Copy constructor
+
+	Wallet& operator=(const Wallet &);	//Copy assignment constructor
 };
 
 #endif 
