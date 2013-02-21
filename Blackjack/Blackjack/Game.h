@@ -14,9 +14,9 @@
 class Game{
 
 public:
-	explicit Game() : playerStands(false), dealerStands(false), player(), dealer(0, true), deck(), round_counter(1){ };	//default ctor
+	explicit Game() : playerStands(false), dealerStands(false), player(), dealer(true), deck(), round_counter(1){ };	//default ctor
 
-	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), player(walletSize, false), dealer(0, true), deck(deckCount), round_counter(1){ };	//ctor
+	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1){ };	//ctor
 
 	virtual ~Game(){ };	//dtor
 

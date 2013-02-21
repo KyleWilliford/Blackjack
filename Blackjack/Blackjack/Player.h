@@ -20,7 +20,7 @@ public:
 
 	explicit Player(const int walletSize) : wallet(walletSize), hand(), names(), handTotal(0) { };	//Constructor with parameterized wallet size (player)
 
-	explicit Player(const int, const bool) : hand(), names(), handTotal(0) { };	//Constructor with parameterized wallet size (dealer - skip wallet initialization)
+	explicit Player(const bool) : hand(), names(), handTotal(0) { };	//Constructor with parameterized wallet size (dealer - skip wallet initialization)
 
 	virtual ~Player(){};	//dtor
 
