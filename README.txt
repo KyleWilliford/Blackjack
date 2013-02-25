@@ -38,11 +38,11 @@ SL string: 0..*
 (0 in the case when the program is run and the user immediately decides to exit, or after a game is played until the user runs out of money, in which case the Game object, and composite instances are destroyed)
 This program utilizes composition rather than class inheritance. 
 Two Players are part of a Game: "player" and "dealer" are both Player objects. Each Wallet is part of a Player. A Deck is part of a Game.
-The "dealer" Player instance does not explicitly initialize a Wallet. I felt that distinguishing a dealer from a player through inheritance to was unnecessarily complex.
+The "dealer" Player instance does not explicitly initialize a Wallet. I felt that distinguishing a dealer from a player through inheritance was unnecessarily complex.
 
 ON THE STRUCTURE OF THE CARD DECK:
-The game's deck is built as a STL vector of 312 enum "FACE" values (6 decks of cards, 52 x 6 = 312). A second STL vector of 312 strings holds the associated string representations of each card (i.e. "ACE (1)", "KING", "TWO", etc.). These vectors are used as imitative stack structures; "cards" are drawn from the back of the vectors.
-The shuffling algorithm simply chooses two random index locations to swap, and swaps the elements if they are not the same index. This process runs continuously for 1 second (constant variable). Swap action counts vary from ~90k to 4m swaps within the allotted time frame, but will vary by CPU and memory timings. This is not a perfect shuffle...by design.
+The game's deck is built as a STL vector of 312 enum "FACE" values (6 decks of cards, 52 x 6 = 312). A second STL vector of 312 strings holds the associated string representations of each card (i.e. "ACE (1)", "KING", "TWO", etc.). These vectors are used as imitative stack structures; "cards" are drawn from the back of the vectors. I am considering using STL stack objects in a future revision.
+The shuffling algorithm simply chooses two random index locations to swap, and swaps the elements if they are not the same index. This process runs continuously for 1 second (constant variable). Swap action counts vary from ~90k to ~4m swaps within the allotted time frame, but will vary by CPU and memory timings. This is not a perfect shuffle...by design. It is entirely possible for some cards to not be swapped at all (though extremely unlikely), or for some cards to end up in their starting position (also unlikely).
 
 ON INPUT VALIDATION
 Since this program is reliant on user input in program flow, incorrect input could cause erratic behavior. 
