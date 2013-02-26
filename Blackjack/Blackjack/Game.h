@@ -21,7 +21,7 @@ public:
 	virtual ~Game(){ };	//dtor
 
 	//Public interface function prototypes
-	const void gameMenu();
+	const void execRound();
 
 	const bool purseNotEmpty() const;
 
@@ -45,6 +45,8 @@ private:
 
 	const void flipAllAces(Player&);
 
+	const void revertAces();
+
 	const int checkNumAces();
 
 	const void gameChoice();
@@ -67,7 +69,6 @@ private:
 
 	//Prevent copying
 	Game(const Game &);	//Copy constructor
-
 	Game& operator= (const Game &);	//Copy assignment constructor
 };
 

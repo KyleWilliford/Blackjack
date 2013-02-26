@@ -25,26 +25,27 @@ const void Deck::shuffle(){
 
 	//Shuffles by choosing random cards in the pack to swap places with
 	//Shuffles continuously for a number of seconds determined by ShuffleTime constant value
-	//Tests indicate approximately 1 to 5 million swaps / sec with a 3.0 GHz processor. Faster CPU and RAM = fewer swap actions.
 	while(elapsed < ShuffleTime){
-		int shuffleCardpos1 = rand() % deckSize;	//Find random place in the vector to swap with
-		int shuffleCardpos2 = rand() % deckSize;	//Find random place in the vector to swap with
+		int shuffleCardpos1 = 0, shuffleCardpos2 = 0;
 
-		if(shuffleCardpos1 != shuffleCardpos2){
-			//Swap cards in value deck
-			FACE temp = deck[shuffleCardpos2];
-			deck[shuffleCardpos2] = deck[shuffleCardpos1];
-			deck[shuffleCardpos1] = temp;
+		do{	//find two random card positions that are not identical
+			shuffleCardpos1 = rand() % deckSize;	//Find random place in the vector to swap with
+			shuffleCardpos2 = rand() % deckSize;	//Find random place in the vector to swap with
+		}while(shuffleCardpos1 == shuffleCardpos2);
 
-			//Swap cards in name deck
-			std::string tempStr = names[shuffleCardpos2];
-			names[shuffleCardpos2] = names[shuffleCardpos1];
-			names[shuffleCardpos1] = tempStr;
-		}
+		//Swap cards in value deck
+		FACE temp = deck[shuffleCardpos2];
+		deck[shuffleCardpos2] = deck[shuffleCardpos1];
+		deck[shuffleCardpos1] = temp;
+
+		//Swap cards in names deck
+		std::string tempStr = names[shuffleCardpos2];
+		names[shuffleCardpos2] = names[shuffleCardpos1];
+		names[shuffleCardpos1] = tempStr;
 		
+		++shuffle_counter;
 		time(&check);
 		elapsed = difftime(check, start);
-		++shuffle_counter;
 	}
 	std::cout << "\nShuffled cards " << shuffle_counter << " times in " << ShuffleTime << " second(s)!\n";
 }

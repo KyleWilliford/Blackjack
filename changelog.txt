@@ -1,3 +1,15 @@
+build 8 (2/26/13)
+- Code tweaks to the shuffling algorithm (Deck.cpp), ace revert method (Game.h & Game.cpp).
++ Created a new private method for the ace revert action (Game::revertAces).
+- Simplified condition check for hidden card in displayCards method (Game.cpp).
+- Renamed Game::gameMenu to Game::execRound.
+- Removed a redundant method from Player.h.
+In anticipation of the "Split Hand" feature, I have made the following software design changes:
++ Added a class "Hand". This is largely a copy of the Player class methods for manipulating the vectors associated with a hand of cards.
++ Added a vector of Hands to Player.h
+- Overloaded hand manipulation methods in Player.h so that by default they call the first Hand object, but can be used w/overloading to manipulate a specific Hand in the vector of hands.
+- Removed methods in Player.cpp
+
 build 7 (2/21/13)
 + Added double down feature.
 - Refactored displayEndOfRound method to accept no parameters.
@@ -28,7 +40,6 @@ This behavior now only checks the first element of the input string, and tells t
 + Added indicator of how many card shuffle actions were performed within the shuffle time limit
 
 build 3 (2/15/13):
-
 + Fixed second dealer card from being shown after the dealer stands, but the player has not. (bug)
 - Modified UI spacing to make changes between rounds more noticeable
 + Added more descriptive comments to codebase

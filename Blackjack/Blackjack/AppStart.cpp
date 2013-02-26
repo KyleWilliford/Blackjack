@@ -41,7 +41,7 @@ void mainMenuChoice(){
 			game = NULL;
 			game = new Game(NumberOfDecks, WalletSize);
 			do{
-				game->gameMenu();
+				game->execRound();	//Execute one round of blackjack
 				if(!game->purseNotEmpty()){
 					std::cout << "\n\nOut of money!\nStart a new game?\n";
 				}

@@ -10,34 +10,23 @@
 bool Game::playAgain = false;
 
 /*
-	@gameMenu
+	@execRound
 	Controls a round of blackjack, dealer AI calls, card display calls, and player menu display, and input parse calls
 */
-const void Game::gameMenu(){
+const void Game::execRound(){
 	int turn_counter = 1;
 	bool round_over = initRound();
 	while(round_over == false){
 		std::cout << "\n!---TURN " << turn_counter << " START---!\n";
 
+		//Display cards for player and dealer
 		displayChips();
 
+		//Present and process user menu choices
 		gameChoice();
 
-		if(player.getHandTotal() > 21){
-			if(checkNumAces() != 0){
-				for(int i = 0; i < player.getHandSize(); ++i){
-					if(player.displayCardVal(i) == VERSA_ACE){
-						player.changeAce(player.displayCardVal(i), i);
-						if(!doubledDown){	//If doubled down, do not allow the user to draw more cards
-							playerStands = false;
-						}
-						displayCards(false);
-						std::cout << "\n\nWARNING: Your current hand is greater than 21, but at least one ace card with a value of 11 was detected.\nYour ace card with value of 11 has been reverted to 1.\nYou can also hit again even if you chose to stand with a hand greater than 21.";
-						break;
-					}
-				}
-			}
-		}
+		//Check that changing an Ace's values has not put the player over 21; auto-correct if necessary
+		revertAces();
 
 		round_over = checkWinConditions(false, false);
 		if(round_over){
@@ -120,19 +109,13 @@ const void Game::placeBet(){
 const void Game::displayCards(const bool displayDealerHand) const {
 	//Display card names
 	std::cout << "\n\nYour hand:";
-	for(int i = 0; i < player.handSize(); ++i){
+	for(int i = 0; i < player.getHandSize(); ++i){
 		std::cout << "\nCard " << (i+1) << ": " << player.displayCard(i);
 	}
 	if(displayDealerHand){
 		std::cout << "\n\nDealer's hand:";
-		for(int i = 0; i < dealer.handSize(); ++i){
-			if(i == 1 && !dealerStands && !playerStands){ //Hide second drawn card
-				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
-			}
-			else if(i == 1 && !playerStands){ //Hide second drawn card
-				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
-			}
-			else if(i == 1 && !dealerStands){ //Hide second drawn card
+		for(int i = 0; i < dealer.getHandSize(); ++i){
+			if(i == 1 && ((!playerStands) || (!dealerStands))){ //Hide second drawn card
 				std::cout << "\nCard " << (i+1) << ": face down (hidden).";
 			}
 			else{
@@ -181,6 +164,30 @@ const void Game::flipAllAces(Player &player){
 }
 
 /*
+	@revertAces
+	Revert ACE (11) cards to ACE (1) if the player's hand is over 21. You wouldn't want to stand on two ACE (11) cards, now would you?
+*/
+const void Game::revertAces(){
+	if(player.getHandTotal() > 21){
+		if(checkNumAces() != 0){
+			for(int i = 0; i < player.getHandSize(); ++i){
+				if(player.displayCardVal(i) == VERSA_ACE){
+					player.changeAce(player.displayCardVal(i), i);
+					if(!doubledDown){	//If doubled down, do not allow the user to draw more cards
+						playerStands = false;
+					}
+					displayCards(false);
+					std::cout << "\n\nWARNING: Your current hand is greater than 21, but at least one ace card with a value of 11 was detected.\nYour ace card with value of 11 has been reverted to 1.\nYou can also hit again even if you chose to stand with a hand greater than 21.";
+					if(player.getHandTotal() < 21){
+						break;	//Break only if the player's hand has been reduced under 21
+					}
+				}
+			}
+		}
+	}
+}
+
+/*
 	@checkForAcess
 	Check for the existence of aces within a player's hand.
 */
@@ -190,7 +197,7 @@ const int Game::checkNumAces(){
 
 /*
 	@gameChoice
-	Parse input from gameMenu for user game interactions.
+	Parse input from execRound for user game interactions.
 */
 const void Game::gameChoice(){
 	if(!playerStands){

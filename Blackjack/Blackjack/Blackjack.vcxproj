@@ -77,6 +77,7 @@
     <ClCompile Include="AppStart.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
@@ -84,6 +85,7 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="FACESUIT.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Hand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
