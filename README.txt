@@ -64,12 +64,13 @@ An installed version of Visual Studio (2010; maybe 2012, but not tested)
 
 INSTALLATION INSTRUCTIONS
 To play the game, simply:
-1. navigate to https://github.com/KyleWilliford/Blackjack/blob/master/Blackjack/Release/Blackjack.exe
-2. Click "View Raw" in the center of the page.
-3. Choose a directory to store the executable.
-4. Run the executable (may require a firewall / AV exception)
-5. ???
-6. Profit.
+1. Install the prerequisites (see above)
+2. navigate to https://github.com/KyleWilliford/Blackjack/blob/master/Blackjack/Release/Blackjack.exe
+3. Click "View Raw" in the center of the page.
+4. Choose a directory to store the executable.
+5. Run the executable (may require a firewall / AV exception)
+6. ???
+7. Profit.
 
 You could also compile the project in VS or another IDE. 
 There may be compatibility errors if you try to compile using GCC or another C compiler (not tested). I used Visual Studio 2010 to compile and test this program, on Windows 7 Ultimate, 64-bit.
