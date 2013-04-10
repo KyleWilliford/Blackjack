@@ -9,22 +9,22 @@
 	@Player
 	Default constructor
 */
-Player::Player() : wallet(), hand(1, Hand()) { 
-};
+Player::Player() : wallet(), set_of_hands(1, Hand()) { 
+}
 
 /*
 	@Player(int)
 	Constructor for the human player instance
 	@param wallet size
 */
-Player::Player(const int walletSize) : wallet(walletSize), hand(1, Hand()) {
+Player::Player(const int walletSize) : wallet(walletSize), set_of_hands(1, Hand()) {
 }
 
 /*
 	@Player(bool)		
 	Constructor for the dealer (AI player instance) - skips wallet initialization
 */
-Player::Player(const bool) : hand(1, Hand()) {
+Player::Player(const bool) : set_of_hands(1, Hand()) {
 }
 
 /*
@@ -40,15 +40,15 @@ Player::~Player(){
 */
 const void Player::placeBet() {
 	wallet.bettingMenu(); 
-	hand[0].setBet(wallet.getBet()); 
+	set_of_hands[0].setBet(wallet.getBet()); 
 }
 
 /*
 	@updatePurse
 	Updates Wallet.purse with the result of a win/loss/push
 */
-const void Player::updatePurse(const int handIndex, const int scale_amount) { 
-	wallet.updatePurse(hand[handIndex].getBet() + scale_amount); 
+const void Player::updatePurse(const int scale_amount) { 
+	wallet.updatePurse(scale_amount); 
 }
 
 /*
@@ -80,7 +80,7 @@ const int Player::getPurse() const {
 	Interface method for drawing a card on a specified hand of cards
 */
 const void Player::hit(const int handIndex, Deck& deck) {
-	hand[handIndex].hit(deck); 
+	set_of_hands[handIndex].hit(deck); 
 }
 
 /*
@@ -88,7 +88,7 @@ const void Player::hit(const int handIndex, Deck& deck) {
 	Interface method for Call an instance of hand to check for Aces
 */
 const int Player::checkForAces(const int handIndex) const { 
-	return hand[handIndex].checkForAces();
+	return set_of_hands[handIndex].checkForAces();
 }
 	
 /*
@@ -96,7 +96,7 @@ const int Player::checkForAces(const int handIndex) const {
 	Call an instance of hand to change an Ace's value
 */
 const void Player::changeAce(const int handIndex, const FACE aceVal, const int aceIndex) { 
-	return hand[handIndex].changeAce(aceVal, aceIndex); 
+	return set_of_hands[handIndex].changeAce(aceVal, aceIndex); 
 }
 
 /*
@@ -104,7 +104,7 @@ const void Player::changeAce(const int handIndex, const FACE aceVal, const int a
 	Interface method for getting the enum value of a card at the indexed location in the vector of cards
 */
 const FACE Player::displayCardVal(const int handIndex, const int cardIndex) const { 
-	return hand[handIndex].displayCardVal(cardIndex); 
+	return set_of_hands[handIndex].displayCardVal(cardIndex); 
 }
 
 /*
@@ -112,7 +112,7 @@ const FACE Player::displayCardVal(const int handIndex, const int cardIndex) cons
 	Interface method for getting the string name of a card at the indexed location in the vector of names
 */
 const std::string Player::displayCardName(const int handIndex, const int cardIndex) const { 
-	return hand[handIndex].displayCardName(cardIndex); 
+	return set_of_hands[handIndex].displayCardName(cardIndex); 
 }
 
 /*
@@ -120,7 +120,7 @@ const std::string Player::displayCardName(const int handIndex, const int cardInd
 	Return the vector size of the specified hand of cards (i.e. the number of cards in the hand)
 */
 const int Player::getHandSize(const int handIndex) const { 
-	return hand[handIndex].getHandSize(); 
+	return set_of_hands[handIndex].getHandSize(); 
 }
 
 /*
@@ -128,7 +128,7 @@ const int Player::getHandSize(const int handIndex) const {
 	Return total value of the specified hand of cards (as integer)
 */
 const int Player::getHandTotal(const int handIndex) const { 
-	return hand[handIndex].getHandTotal(); 
+	return set_of_hands[handIndex].getHandTotal(); 
 }
 
 /*
@@ -136,7 +136,7 @@ const int Player::getHandTotal(const int handIndex) const {
 	Interface method for resetting the flag variables of the specified hand
 */
 const void Player::resetHand(const int handIndex){
-	hand[handIndex].resetHand(); 
+	set_of_hands[handIndex].resetHand(); 
 }
 
 /*
@@ -144,8 +144,8 @@ const void Player::resetHand(const int handIndex){
 	Reset all hands by removing all but one of the Hand objects in the Player::hand vector, and then resetting the remaining Hand object's variables
 */
 const void Player::resetAllHands(){
-	hand.resize(1);
-	hand[0].resetHand();
+	set_of_hands.resize(1);
+	set_of_hands[0].resetHand();
 }
 
 /*
@@ -153,16 +153,22 @@ const void Player::resetAllHands(){
 	Split a specified hand of cards, and create an additional hand of cards
 */
 const void Player::addSplitHand(const int handIndex, Deck & deck){
-	hand.push_back(Hand(hand[handIndex].displayCardVal(0), 
-		hand[handIndex].displayCardName(0), 
-		hand[handIndex].getHandTotal() / 2, 
-		hand[handIndex].getBet())
+	//Create a new Hand obj
+	set_of_hands.push_back(Hand(set_of_hands[handIndex].displayCardVal(0), 
+		set_of_hands[handIndex].displayCardName(0), 
+		set_of_hands[handIndex].getHandTotal() / 2, 
+		set_of_hands[handIndex].getBet())
 		);
-	hand[handIndex].split();
+	
+	//Modify the current Hand
+	set_of_hands[handIndex].split();
 
 	//Draw a new card for each split hand
-	hand[handIndex].hit(deck);
-	hand[handIndex + 1].hit(deck);
+	set_of_hands[handIndex].hit(deck);
+	set_of_hands[handIndex + 1].hit(deck);
+
+	//Update Purse
+	wallet.updatePurse(wallet.getBet() * -1);
 }
 
 /*
@@ -170,7 +176,7 @@ const void Player::addSplitHand(const int handIndex, Deck & deck){
 	Return the size of vector hand (the size equals the number of card hands the player has in play)
 */
 const int Player::getNumberOfHands() const { 
-	return hand.size(); 
+	return set_of_hands.size(); 
 }
 
 /*
@@ -178,7 +184,7 @@ const int Player::getNumberOfHands() const {
 	Interface method for setting the specified hand of card's stand variable to @param stand
 */
 const void Player::setHandStandStatus(const int handIndex, const bool stand) { 
-	hand[handIndex].setStand(stand); 
+	set_of_hands[handIndex].setStand(stand); 
 }
 
 /*
@@ -186,5 +192,5 @@ const void Player::setHandStandStatus(const int handIndex, const bool stand) {
 	Interface method for getting the stand status of a specified hand of cards
 */
 const bool Player::getHandStandStatus(const int handIndex) const { 
-	return hand[handIndex].getStand(); 
+	return set_of_hands[handIndex].getStand(); 
 }

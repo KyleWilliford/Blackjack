@@ -56,7 +56,7 @@ const int Wallet::getPurse() const {
 
 /*
 	@updatePurse
-	Update the purse with the bet amount
+	Update the purse with the bet amount (addition only - subtraction with a negative integer obviously)
 */
 const void Wallet::updatePurse(int bet) { 
 	purse += bet; 

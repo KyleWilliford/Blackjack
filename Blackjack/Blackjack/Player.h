@@ -24,7 +24,7 @@ public:
 
 	//Wallet methods
 	const void placeBet();	
-	const void updatePurse(const int handIndex, const int scale_amount);
+	const void updatePurse(const int scale_amount);
 	const int getBet() const;
 	const void doubleBet();
 	const int getPurse() const;
@@ -47,7 +47,7 @@ public:
 private:
 	//Private variables and containers
 	Wallet wallet;
-	std::vector<Hand> hand;
+	std::vector<Hand> set_of_hands;
 
 	//Prevent copying
 	Player(const Player &);	//Copy constructor

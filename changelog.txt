@@ -1,3 +1,11 @@
+build 12 (4/10/13)
++ Fixed a bug in blackjack winnings calculations
++ Fixed win condition checks with a split hand
++ Fixed split hand not correctly deducting an additional bet amount from the purse
+- Renamed some confusing variables to be...slightly less confusing
++ Fixed multiple wallet info displays in game
+- Changed window size is set to paint at 1024x768 pixels.
+
 build 11 (4/9/13)
 First public build after a lengthy, self-imposed, hiatus.
 

@@ -9,8 +9,8 @@
 #include "Game.h"
 
 
-const int x = 700;	//window width
-const int y = 750;	//window height
+const int x = 1024;	//window width
+const int y = 768;	//window height
 
 static const int NumberOfDecks = 6;
 static const int WalletSize = 30000;
