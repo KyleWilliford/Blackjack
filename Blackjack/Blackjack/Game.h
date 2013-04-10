@@ -14,8 +14,8 @@ class Game{
 
 public:
 	//Ctors and Dtor
-	explicit Game() : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(), dealer(true), deck(), round_counter(1), current_hand(0) { };	//default ctor
-	explicit Game(const int deckCount, const int walletSize) : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1), current_hand(0) { };	//ctor
+	explicit Game() : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(), dealer(true), deck(), round_counter(1), current_hand(0), insurance_amount(0) { };	//default ctor
+	explicit Game(const int deckCount, const int walletSize) : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1), current_hand(0), insurance_amount(0) { };	//ctor
 	virtual ~Game(){ };	//dtor
 
 	//Public interface function prototypes
@@ -29,6 +29,7 @@ private:
 	//Game private function prototypes
 	const void displayChips() const;
 	const bool initRound();
+	const int placeInsurance() const;
 	const void placeBet();
 	const void displayCards(const bool) const;
 	const void flipAces();
@@ -48,7 +49,7 @@ private:
 	bool dealerStands, dealerBusted, doubledDown, splitHand;
 	Player player, dealer;
 	Deck deck;
-	int round_counter, current_hand;
+	int round_counter, current_hand, insurance_amount;
 
 	//Prevent copying
 	Game(const Game &);	//Copy constructor

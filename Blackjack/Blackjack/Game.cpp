@@ -82,6 +82,7 @@ const void Game::displayChips() const {
 	std::cout << "\nRemaining wallet: " << player.getPurse();
 	if(player.getNumberOfHands() == 1){
 		std::cout << "\nBet amount: " << player.getBet(); 
+		std::cout << "\nInsurance amount: " << insurance_amount; 
 	}
 	else{
 		for(int i = current_hand; i < player.getNumberOfHands(); ++i){
@@ -109,20 +110,63 @@ const bool Game::initRound() {
 	bool blackjack = false;
 	int playerAceCount = player.checkForAces(current_hand);
 	int dealerAceCount = dealer.checkForAces(0);
+	
+	if (dealer.displayCardVal(0, 0) == ACE || (playerAceCount == 1 && player.getHandTotal(current_hand) == 11)){	//insurance prompt
+		displayCards(true);
+		insurance_amount = placeInsurance();
+		player.updatePurse(-1 * insurance_amount);
+	}
+
 	if(playerAceCount == 1 && dealerAceCount == 1 && player.getHandTotal(current_hand) == 11 && dealer.getHandTotal(0) == 11){
 		blackjack = checkWinConditions(true, true);
+		if(insurance_amount > 0){
+			std::cout << "Your insurance paid off.";
+			player.updatePurse(insurance_amount * 2);
+			insurance_amount = 0;
+		}
 	}
 	else if(playerAceCount == 1 && player.getHandTotal(current_hand) == 11){
 		blackjack = checkWinConditions(true, false);
 	}
 	else if(dealerAceCount == 1 && dealer.getHandTotal(0) == 11){
 		blackjack = checkWinConditions(false, true);
+		if(insurance_amount > 0){
+			std::cout << "Your insurance paid off.";
+			player.updatePurse(insurance_amount * 2);
+			insurance_amount = 0;
+		}
 	}
 
 	if(blackjack){
 		return gameOver();
 	}
 	return false;
+}
+
+/*
+	@placeInsurance
+	Prompt for the user to buy insurance
+*/
+const int Game::placeInsurance() const {
+	int amount = 0;
+	bool valid = false;
+	do{
+		std::cout << "\nThe dealer has an Ace upcard or you have a blackjack. You can buy insurance up to one half of your bet this round." <<
+			"\nIf the dealer has a blackjack, you will win twice your insurance amount." <<
+			"\nYou lose your insurance if the dealer does not have a blackjack." <<
+			"\nEnter insurance amount (0 to cancel): ";
+		std::string input;
+		std::cin >> input;
+		amount = atoi(input.c_str());
+		if(amount > player.getBet() / 2 || amount < 0){
+			std::cout << "\n\nInvalid input.\n";
+			valid = false;
+		}
+		else{
+			valid = true;
+		}
+	}while(!valid);
+	return amount;
 }
 
 /*
@@ -204,7 +248,7 @@ const void Game::flipAces(){
 
 /*
 	@flipAllAces
-	Flip the value of all of the parameter player's ace cards.
+	Flip the value of all of the @parameter player's ace cards.
 	Can be used for the dealer or player.
 	Used when a player has a blackjack (Ace + 10 value card on first two card draws).
 */
@@ -261,16 +305,19 @@ const void Game::gameChoice(){
 			std::cout << "\nMake a choice for hand #" << current_hand + 1 << ".\n";
 			std::cout << "1. Hit\n";
 			std::cout << "2. Stand\n";
+
 			if(player.getHandSize(current_hand) == 2 && player.getNumberOfHands() == 1 && (player.getBet() * 2 <= player.getPurse())){	//Check that the player can afford to double down, and is eligible to do so this round
 				std::cout << "3. Double Down\n";
 				double_valid = true;
 			}
+
 			if(player.getHandSize(current_hand) == 2 && ((player.displayCardName(current_hand, 0) == player.displayCardName(current_hand, 1)) || ((player.displayCardVal(current_hand, 0) == 1 || player.displayCardVal(current_hand, 0) == 11) && (player.displayCardVal(current_hand, 1) == 1 || player.displayCardVal(current_hand, 1) == 11)))){
 				if(player.getBet() <= player.getPurse()){
 					std::cout << "4. Split Hand\n";
 					split_valid = true;
 				}
 			}
+
 			if(checkNumAces() != 0){
 				std::cout << "5. Change Ace Values\n";
 				ace_valid = true;
@@ -467,6 +514,9 @@ const bool Game::checkWinConditions(const bool p_blackjack, const bool d_blackja
 	Reset a round of blackjack, or exit.
 */
 const bool Game::gameOver(){
+	if(insurance_amount != 0){
+		std::cout << "\nYou lost your insurance bet.\n";
+	}
 	std::cout << "\n!---END OF ROUND " << round_counter << "---!\n";
 	bool valid = false;
 	do{
@@ -509,11 +559,11 @@ const bool Game::gameOver(){
 	Clean the player & dealer hands in anticipation of a new round.
 */
 const void Game::cleanupRound(){
+	dealerStands = false, dealerBusted = false, doubledDown = false, splitHand = false;
 	player.resetAllHands();
-	dealerStands = false, dealerBusted = false, doubledDown = false;
-	player.resetHand(current_hand);
 	dealer.resetHand(0);
 	++round_counter;
+	insurance_amount = 0;
 }
 
 /*

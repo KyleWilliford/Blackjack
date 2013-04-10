@@ -23,7 +23,7 @@ const void Hand::setBet(const int bet) {
 
 /*
 	@hit
-	Draw a card from the deck and add it to this Hand's hand. 
+	Draw a card from the deck and add it to this hand. 
 	Modifies Deck's deck vector in place.
 */
 const void Hand::hit(Deck &deck){
@@ -32,9 +32,10 @@ const void Hand::hit(Deck &deck){
 	names.push_back(deck.drawName());
 	handTotal += cardDrawn;
 }
+
 /*
 	@checkAce
-	Looks for a number of aces in the Hand's hand.
+	Looks for and returns the number of aces in this hand.
 */
 const int Hand::checkForAces() const {
 	int numAces = 0;

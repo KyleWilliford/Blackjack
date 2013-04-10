@@ -1,3 +1,11 @@
+build 13 (4/10/13)
++ Fixed Instruction text typos
++ Added insurance feature
++ Added instructions section for insurance
+- Updated instruction section and changed formatting.
+
+Noteto self: More testing required for insurance functionality
+
 build 12 (4/10/13)
 + Fixed a bug in blackjack winnings calculations
 + Fixed win condition checks with a split hand
