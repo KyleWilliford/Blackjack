@@ -1,6 +1,5 @@
 /*
 	Kyle Williford
-	2/6/13
 	Blackjack [WIP]
 */
 
@@ -11,21 +10,16 @@
 class Wallet{
 
 public:
+	//Ctors and Dtor
 	explicit Wallet() : purse(500), bet(0){ };	//default ctor
-
 	explicit Wallet(const int amount) : purse(amount), bet(0){ };	//ctor
-
 	virtual ~Wallet(){ };	//dtor
 
 	const void bettingMenu();
-
-	const int getBet() const { return bet; };		//Return this Wallet's current bet amount
-
-	const void doubleBet() { updatePurse(-bet); bet *= 2; };	//Double the bet (double down)
-
-	const int getPurse() const { return purse; };	//Return the value of this Wallet's purse
-
-	const void updatePurse(int bet) { purse += bet; };	//Update the purse with the bet amount
+	const int getBet() const;
+	const void doubleBet();
+	const int getPurse() const;
+	const void updatePurse(int);
 
 private:
 	//Variables

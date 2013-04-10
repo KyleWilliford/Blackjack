@@ -1,4 +1,4 @@
-PROGRAM DESCRIPTION for laymen
+PROGRAM DESCRIPTION
 Currently, this game consists of a simple implementation of the card game "Blackjack," a.k.a. "21".
 Upon executing the program, the user will be presented with a game menu. Current options are: New Game, or Exit.
 After selecting New Game, the game deck is built as a stack of 312 cards (6 decks of cards, 52 x 6 = 312). 
@@ -24,7 +24,7 @@ STAND - Do not draw a card. Also eliminates further opportunities to hit in the 
 DOUBLE DOWN - Doubles your current bet, draws a single card, and immediately makes you stand. This can only be performed in the first turn of any round, and only by the player.
 FLIP ACES - Change ACE cards from values of 1 to 11, and vice versa, at the player's discretion. 
 
-TECHNICAL DETAILS
+TECHNICAL (CODING) DETAILS
 ON CLASSES:
 This program consists of several classes and instances of those classes. 
 There is a heap allocated Game instance. Other objects are not heap memory objects. 
@@ -77,5 +77,7 @@ There may be compatibility errors if you try to compile using GCC or another C c
 
 
 NOTICE:
-This is a work in progress. This is not intended for commercial release.
+This is a work in progress. This is not intended for (any future) commercial release.
 Please do not use this code in any of your projects. Ask me for permission if you wish to contribute (I prefer ideas rather than code contributions, if any).
+
+You can contact me at willifordkyle@hotmail.com or via my account on Github (not checked regularly though).

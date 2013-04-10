@@ -1,6 +1,5 @@
 /*
 	Kyle Williford
-	2/26/13
 	Blackjack [WIP]
 */
 
@@ -15,33 +14,32 @@
 class Hand{
 
 public:
-	explicit Hand() : hand(), names(), handTotal(0) { };
+	//Ctors and Dtor
+	explicit Hand() : hand(), names(), handTotal(0), bet(0), stand(false) { };
+	explicit Hand(const FACE card, const std::string namedCard, const int total, const int bet) : hand(1, card), names(1, namedCard), handTotal(total), bet(bet), stand(false) { };	//For split hand construction
+	virtual ~Hand() { };	//dtor
 
-	explicit Hand(const FACE card, const std::string namedCard, const int total) : hand(1, card), names(1, namedCard), handTotal(total){ };	//For split hand construction
-
-	virtual ~Hand(){ };	//dtor
-
+	//Hand public interface function prototypes
+	const int getBet() const;
+	const void setBet(const int bet);
 	const void hit(Deck&);
-
 	const int checkForAces() const;
-
 	const void changeAce(const FACE, const int);
-
-	const FACE displayCardVal(const int index) const { return hand.at(index); };	//Return the value of the card at the indexed location in the hand vector
-
-	const std::string displayCard(const int index) const { return names.at(index); };	//Return the name of the card at the indexed location in the names vector
-
-	const int getHandSize() const { return hand.size(); };	//Return the size of the hand vector from this instance
-
-	const int getHandTotal()const { return handTotal; };	//Return a copy of the hand total value from this instance
-
-	const void resetHand(){ hand.resize(0); names.resize(0); handTotal = 0; };	//Reset the hand, names, and handTotal vectors, and variable, respectively
+	const FACE displayCardVal(const int index) const;
+	const std::string displayCardName(const int index) const;
+	const int getHandSize() const;
+	const int getHandTotal() const;
+	const void resetHand();
+	const void split();
+	const void setStand(const bool stand);
+	const bool getStand() const;
 
 private:
 	//Private variables and containers
 	std::vector<FACE> hand;
 	std::vector<std::string> names;
-	int handTotal;
+	int handTotal, bet;
+	bool stand;
 };
 
 #endif 

@@ -1,6 +1,5 @@
 /*
 	Kyle Williford
-	2/6/13
 	Blackjack [WIP]
 */
 
@@ -28,4 +27,37 @@ const void Wallet::bettingMenu(){
 			purse -= bet;
 		}
 	}while(!valid);
+}
+
+/*
+	@getBet
+	Return this Wallet's current bet amount
+*/
+const int Wallet::getBet() const 
+{ 
+	return bet; 
+}
+
+/*
+	@doubleBet
+	Double the bet (double down)
+*/
+const void Wallet::doubleBet() { 
+	updatePurse(-bet); bet *= 2; 
+}
+
+/*
+	@getPurse
+	Return the value of this Wallet's purse
+*/
+const int Wallet::getPurse() const { 
+	return purse; 
+}
+
+/*
+	@updatePurse
+	Update the purse with the bet amount
+*/
+const void Wallet::updatePurse(int bet) { 
+	purse += bet; 
 }

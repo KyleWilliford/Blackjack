@@ -1,6 +1,5 @@
 /*
 	Kyle Williford
-	2/6/13
 	Blackjack [WIP]
 */
 
@@ -14,58 +13,42 @@
 class Game{
 
 public:
-	explicit Game() : playerStands(false), dealerStands(false), doubledDown(false), player(), dealer(true), deck(), round_counter(1){ };	//default ctor
-
-	explicit Game(const int deckCount, const int walletSize) : playerStands(false), dealerStands(false), doubledDown(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1){ };	//ctor
-
+	//Ctors and Dtor
+	explicit Game() : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(), dealer(true), deck(), round_counter(1), current_hand(0) { };	//default ctor
+	explicit Game(const int deckCount, const int walletSize) : dealerStands(false), dealerBusted(false), doubledDown(false), splitHand(false), player(walletSize), dealer(true), deck(deckCount), round_counter(1), current_hand(0) { };	//ctor
 	virtual ~Game(){ };	//dtor
 
 	//Public interface function prototypes
 	const void execRound();
-
 	const bool purseNotEmpty() const;
 
-	//Public static variable
+	//Public static variables
 	static bool playAgain;
 
 private:
-	const void displayChips() const { 
-		std::cout << "\nWallet: " << player.getPurse(); 
-		std::cout << "\nBet amount: " << player.getBet(); 
-	};
-
-	//Function prototypes
+	//Game private function prototypes
+	const void displayChips() const;
 	const bool initRound();
-
 	const void placeBet();
-
 	const void displayCards(const bool) const;
-
 	const void flipAces();
-
 	const void flipAllAces(Player&);
-
 	const void revertAces();
-
-	const int checkNumAces();
-
+	const int checkNumAces() const;
 	const void gameChoice();
-
 	const void dealerAI();
-
 	const void displayEndOfRound();
-	
 	const bool checkWinConditions(const bool, const bool);
-
 	const bool gameOver();
-
 	const void cleanupRound();
+	const void setPlayerStands(const bool);
+	const bool getPlayerStands() const;
 	
 	//Variables
-	bool playerStands, dealerStands, doubledDown;
+	bool dealerStands, dealerBusted, doubledDown, splitHand;
 	Player player, dealer;
 	Deck deck;
-	int round_counter;
+	int round_counter, current_hand;
 
 	//Prevent copying
 	Game(const Game &);	//Copy constructor

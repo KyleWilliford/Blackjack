@@ -1,6 +1,6 @@
 prioritized list:
-Split hand feature
-Insurance (A blackjack game feature)
+Split hand feature (Completed 4/9/13)
+Dealer Insurance
 Save game (to flat file)
 Load game (from flat file)
 Game options (Allow the user to set number of decks to use, dealer AI rules, starting wallet amount, etc.; perhaps "Vegas mode", "Atlantic City mode", etc.)
