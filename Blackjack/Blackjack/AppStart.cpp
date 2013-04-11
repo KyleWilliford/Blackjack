@@ -4,21 +4,27 @@
 */
 
 #include <windows.h>
+#include <stdlib.h>
 #include <iostream>
 #include <string>
 #include "Game.h"
 
 
-const int x = 1024;	//window width
-const int y = 768;	//window height
+static const int x = 1024;	//window width
+static const int y = 768;	//window height
 
 static const int NumberOfDecks = 6;
 static const int WalletSize = 30000;
 
 static Game *game;
 
-void instructionsMenu() {
-	std::cout << "\nInstructions Menu" << std::endl;
+/*
+	@instructionsMenu
+	Display a list of choices for the instructions menu.
+*/
+void instructionsMenu()
+{
+	std::cout << "\n\nBLACKJACK!\n\nInstructions Menu" << std::endl;
 	std::cout << "1: View Game Rules" << std::endl;
 	std::cout << "2: View Gameplay Choices" << std::endl;
 	std::cout << "3: Return to Main Menu" << std::endl;
@@ -26,10 +32,11 @@ void instructionsMenu() {
 }
 
 /*
-	@Instructions
-	Print instructions to the user
+	@displayInstructions
+	Parse the user's choice from the instruction menu.
 */
-void displayInstructions() {
+void displayInstructions()
+{
 	bool valid = false;
 	do{
 		instructionsMenu();
@@ -38,6 +45,7 @@ void displayInstructions() {
 		int choice = atoi(input.c_str());
 		switch (choice){
 		case 1:
+			system("cls");
 			std::cout << "\nRULES:\n";
 			std::cout << "General Concept - Draw cards to get as close as possible to 21 without going over. Card values are equal to " <<
 				"\ntheir face value, with Jack, Queen, and King cards worth 10 each." <<
@@ -51,11 +59,13 @@ void displayInstructions() {
 				"\nThe dealer's turn is after the player's." <<
 				"\n\nWhat is a round? - A round consists of an entire game of blackjack from betting to" << 
 				"\nfinal evaluation and payouts, and can consist of many turns." <<
-				"\n\nHow big are your shoes? - The shoe of cards (called deck in places) consists of 6 full decks of cards (52 x 6 = 312 cards)." <<
-				"\nCards are drawn from the end of the deck, after it is shuffled. The deck is rebuilt and reshuffled when the deck has 12 or fewer cards remaining.";
-			valid = true;
+				"\n\nHow big are your shoes? - The shoe of cards (called deck in places) consists of 6 full" <<
+				"\ndecks of cards (52 x 6 = 312 cards). Cards are drawn from the end of the deck, after it is" <<
+				"\nshuffled. The deck is rebuilt and reshuffled when the deck has 12 or fewer cards remaining.";
+			valid = false;
 			break;
 		case 2:
+			system("cls");
 			std::cout << "\nGAMEPLAY CHOICES:\n";
 			std::cout << "\nHit - Draw a card\n";
 			std::cout << "\nStand - Stop drawing cards and finalize your hand. You cannot draw " <<
@@ -90,10 +100,10 @@ void displayInstructions() {
 				"\nthe dealer has an Ace upcard (shown card), OR you have a blackjack." <<
 				"\nThis bet is separate from your primary wager, and can be won or lost independently." <<
 				"\nInsurance pays 2:1 of the insured amount.";
-			valid = true;
+			valid = false;
 			break;
 		case 3:
-			std::cout << "\nReturning to main menu.\n\n";
+			system("cls");
 			valid = true;
 			break;
 		default:
@@ -103,15 +113,15 @@ void displayInstructions() {
 			break;
 		}
 	}while(!valid);
-	std::cout << std::endl;
 }
 
 /*
 	@mainMenu
-	Presents a new game/exit menu to the user.
+	Presents a new game/instructions/exit choice menu to the user.
 */
-void mainMenu() {
-	std::cout << "\nBLACKJACK!\n" << std::endl;
+void mainMenu() 
+{
+	std::cout << "\n\nBLACKJACK!\n" << std::endl;
 	std::cout << "Main Menu" << std::endl;
 	std::cout << "1: New Game" << std::endl;
 	std::cout << "2: Instructions" << std::endl;
@@ -121,9 +131,10 @@ void mainMenu() {
 
 /*
 	@mainMenuChoice
-	Parse input from mainMenu() and call Game methods
+	Parse input from mainMenu() and call Game methods.
 */
-void mainMenuChoice() {
+void mainMenuChoice() 
+{
 	bool valid = false;
 	do{
 		mainMenu();
@@ -132,18 +143,20 @@ void mainMenuChoice() {
 		int choice = atoi(input.c_str());
 		switch (choice){
 		case 1:
+			system("cls");
 			delete game;
 			game = NULL;
 			game = new Game(NumberOfDecks, WalletSize);
-			do{
+			do{	//Loop until the user decides not to play again, or the user runs out of currency
 				game->execRound();	//Execute one round of blackjack
-				if(!game->purseNotEmpty()){
-					std::cout << "\n\nOut of money!\nStart a new game?\n";
+				if(game->isPurseEmpty()){
+					std::cout << "Out of money!\nStart a new game?";
 				}
-			}while(game->playAgain && game->purseNotEmpty());
+			}while(game->playAgain && !game->isPurseEmpty());
 			valid = true;
 			break;
 		case 2:
+			system("cls");
 			displayInstructions();
 			valid = false;
 			break;
@@ -163,9 +176,10 @@ void mainMenuChoice() {
 
 /*
 	@setWindow
-	Resize the game window
+	Resize the game window, and allow it to be resized manually by the user (by edge dragging).
 */
-void setWindow(const int x, const int y) {
+void setWindow(const int x, const int y) 
+{
 	_COORD coord;
     coord.X = x;
     coord.Y = y;
@@ -181,8 +195,14 @@ void setWindow(const int x, const int y) {
 	MoveWindow(GetConsoleWindow(), 0, 0, x, y, TRUE);
 }
 
-int main() {
+/*
+	@main
+	Main execution thread/ program start.
+*/
+int main()
+{
     setWindow(x, y);
+	system("cls");
 	do{
 		mainMenuChoice();
 		std::cout << "\n";

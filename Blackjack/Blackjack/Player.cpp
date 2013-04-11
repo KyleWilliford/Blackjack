@@ -9,7 +9,8 @@
 	@Player
 	Default constructor
 */
-Player::Player() : wallet(), set_of_hands(1, Hand()) { 
+Player::Player() : wallet(), set_of_hands(1, Hand())
+{ 
 }
 
 /*
@@ -17,28 +18,32 @@ Player::Player() : wallet(), set_of_hands(1, Hand()) {
 	Constructor for the human player instance
 	@param wallet size
 */
-Player::Player(const int walletSize) : wallet(walletSize), set_of_hands(1, Hand()) {
+Player::Player(const int walletSize) : wallet(walletSize), set_of_hands(1, Hand())
+{
 }
 
 /*
 	@Player(bool)		
 	Constructor for the dealer (AI player instance) - skips wallet initialization
 */
-Player::Player(const bool) : set_of_hands(1, Hand()) {
+Player::Player(const bool) : set_of_hands(1, Hand())
+{
 }
 
 /*
 	@~Player 
 	Player obj destructor
 */
-Player::~Player(){
+Player::~Player()
+{
 }
 
 /*
 	@placeBet
 	Interface for calling WalletbettingMenu
 */
-const void Player::placeBet() {
+const void Player::placeBet()
+{
 	wallet.bettingMenu(); 
 	set_of_hands[0].setBet(wallet.getBet()); 
 }
@@ -47,7 +52,8 @@ const void Player::placeBet() {
 	@updatePurse
 	Updates Wallet.purse with the result of a win/loss/push
 */
-const void Player::updatePurse(const int scale_amount) { 
+const void Player::updatePurse(const int scale_amount)
+{ 
 	wallet.updatePurse(scale_amount); 
 }
 
@@ -55,7 +61,8 @@ const void Player::updatePurse(const int scale_amount) {
 	@getBet
 	Return a copy of the bet amount stored in Wallet
 */
-const int Player::getBet() const { 
+const int Player::getBet() const
+{ 
 	return wallet.getBet(); 
 }
 
@@ -63,7 +70,8 @@ const int Player::getBet() const {
 	@doubleBet	
 	Interface methof for doubling down on a bet
 */
-const void Player::doubleBet() {
+const void Player::doubleBet()
+{
 	wallet.doubleBet(); 
 }
 
@@ -71,7 +79,8 @@ const void Player::doubleBet() {
 	@getPurse
 	Interface method for getting a copy of the purse amount stored in Wallet
 */
-const int Player::getPurse() const { 
+const int Player::getPurse() const
+{ 
 	return wallet.getPurse(); 
 }
 
@@ -79,7 +88,8 @@ const int Player::getPurse() const {
 	@hit
 	Interface method for drawing a card on a specified hand of cards
 */
-const void Player::hit(const int handIndex, Deck& deck) {
+const void Player::hit(const int handIndex, Deck& deck) 
+{
 	set_of_hands[handIndex].hit(deck); 
 }
 
@@ -87,7 +97,8 @@ const void Player::hit(const int handIndex, Deck& deck) {
 	@checkForAces
 	Interface method for Call an instance of hand to check for Aces
 */
-const int Player::checkForAces(const int handIndex) const { 
+const int Player::checkForAces(const int handIndex) const
+{ 
 	return set_of_hands[handIndex].checkForAces();
 }
 	
@@ -95,7 +106,8 @@ const int Player::checkForAces(const int handIndex) const {
 	@changeAce	
 	Call an instance of hand to change an Ace's value
 */
-const void Player::changeAce(const int handIndex, const FACE aceVal, const int aceIndex) { 
+const void Player::changeAce(const int handIndex, const FACE aceVal, const int aceIndex) 
+{ 
 	return set_of_hands[handIndex].changeAce(aceVal, aceIndex); 
 }
 
@@ -103,7 +115,8 @@ const void Player::changeAce(const int handIndex, const FACE aceVal, const int a
 	@displayCardVal
 	Interface method for getting the enum value of a card at the indexed location in the vector of cards
 */
-const FACE Player::displayCardVal(const int handIndex, const int cardIndex) const { 
+const FACE Player::displayCardVal(const int handIndex, const int cardIndex) const
+{ 
 	return set_of_hands[handIndex].displayCardVal(cardIndex); 
 }
 
@@ -111,7 +124,8 @@ const FACE Player::displayCardVal(const int handIndex, const int cardIndex) cons
 	@displayCardName
 	Interface method for getting the string name of a card at the indexed location in the vector of names
 */
-const std::string Player::displayCardName(const int handIndex, const int cardIndex) const { 
+const std::string Player::displayCardName(const int handIndex, const int cardIndex) const
+{ 
 	return set_of_hands[handIndex].displayCardName(cardIndex); 
 }
 
@@ -119,7 +133,8 @@ const std::string Player::displayCardName(const int handIndex, const int cardInd
 	@getHandSize	
 	Return the vector size of the specified hand of cards (i.e. the number of cards in the hand)
 */
-const int Player::getHandSize(const int handIndex) const { 
+const int Player::getHandSize(const int handIndex) const 
+{ 
 	return set_of_hands[handIndex].getHandSize(); 
 }
 
@@ -127,7 +142,8 @@ const int Player::getHandSize(const int handIndex) const {
 	@getHandTotal	
 	Return total value of the specified hand of cards (as integer)
 */
-const int Player::getHandTotal(const int handIndex) const { 
+const int Player::getHandTotal(const int handIndex) const 
+{ 
 	return set_of_hands[handIndex].getHandTotal(); 
 }
 
@@ -135,7 +151,8 @@ const int Player::getHandTotal(const int handIndex) const {
 	@resetHand	
 	Interface method for resetting the flag variables of the specified hand
 */
-const void Player::resetHand(const int handIndex){
+const void Player::resetHand(const int handIndex)
+{
 	set_of_hands[handIndex].resetHand(); 
 }
 
@@ -143,7 +160,8 @@ const void Player::resetHand(const int handIndex){
 	@resetAllHands
 	Reset all hands by removing all but one of the Hand objects in the Player::hand vector, and then resetting the remaining Hand object's variables
 */
-const void Player::resetAllHands(){
+const void Player::resetAllHands()
+{
 	set_of_hands.resize(1);
 	set_of_hands[0].resetHand();
 }
@@ -152,7 +170,8 @@ const void Player::resetAllHands(){
 	@addSplitHand
 	Split a specified hand of cards, and create an additional hand of cards
 */
-const void Player::addSplitHand(const int handIndex, Deck & deck){
+const void Player::addSplitHand(const int handIndex, Deck & deck)
+{
 	//Create a new Hand obj
 	set_of_hands.push_back(Hand(set_of_hands[handIndex].displayCardVal(0), 
 		set_of_hands[handIndex].displayCardName(0), 
@@ -175,7 +194,8 @@ const void Player::addSplitHand(const int handIndex, Deck & deck){
 	@getNumberOfHands
 	Return the size of vector hand (the size equals the number of card hands the player has in play)
 */
-const int Player::getNumberOfHands() const { 
+const int Player::getNumberOfHands() const 
+{ 
 	return set_of_hands.size(); 
 }
 
@@ -183,7 +203,8 @@ const int Player::getNumberOfHands() const {
 	@setHandStandStatus
 	Interface method for setting the specified hand of card's stand variable to @param stand
 */
-const void Player::setHandStandStatus(const int handIndex, const bool stand) { 
+const void Player::setHandStandStatus(const int handIndex, const bool stand) 
+{ 
 	set_of_hands[handIndex].setStand(stand); 
 }
 
@@ -191,6 +212,7 @@ const void Player::setHandStandStatus(const int handIndex, const bool stand) {
 	@getHandStandStatus
 	Interface method for getting the stand status of a specified hand of cards
 */
-const bool Player::getHandStandStatus(const int handIndex) const { 
+const bool Player::getHandStandStatus(const int handIndex) const 
+{ 
 	return set_of_hands[handIndex].getStand(); 
 }

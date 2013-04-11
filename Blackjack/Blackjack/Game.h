@@ -20,7 +20,7 @@ public:
 
 	//Public interface function prototypes
 	const void execRound();
-	const bool purseNotEmpty() const;
+	const bool isPurseEmpty() const;
 
 	//Public static variables
 	static bool playAgain;
@@ -29,7 +29,7 @@ private:
 	//Game private function prototypes
 	const void displayChips() const;
 	const bool initRound();
-	const int placeInsurance() const;
+	const void placeInsurance();
 	const void placeBet();
 	const void displayCards(const bool) const;
 	const void flipAces();

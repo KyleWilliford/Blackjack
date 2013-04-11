@@ -11,7 +11,8 @@
 	@bettingMenu
 	Present a menu for the player to ante up.
 */
-const void Wallet::bettingMenu(){
+const void Wallet::bettingMenu()
+{
 	bool valid = true;
 	do{
 		std::cout << "\nBet how much? (positive integers only): ";
@@ -42,7 +43,8 @@ const int Wallet::getBet() const
 	@doubleBet
 	Double the bet (double down)
 */
-const void Wallet::doubleBet() { 
+const void Wallet::doubleBet() 
+{ 
 	updatePurse(-bet); bet *= 2; 
 }
 
@@ -50,7 +52,8 @@ const void Wallet::doubleBet() {
 	@getPurse
 	Return the value of this Wallet's purse
 */
-const int Wallet::getPurse() const { 
+const int Wallet::getPurse() const
+{ 
 	return purse; 
 }
 
@@ -58,6 +61,7 @@ const int Wallet::getPurse() const {
 	@updatePurse
 	Update the purse with the bet amount (addition only - subtraction with a negative integer obviously)
 */
-const void Wallet::updatePurse(int bet) { 
+const void Wallet::updatePurse(int bet) 
+{ 
 	purse += bet; 
 }

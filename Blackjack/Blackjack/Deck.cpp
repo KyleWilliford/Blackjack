@@ -14,7 +14,8 @@ const double Deck::ShuffleTime = 1.0;
 	@shuffle
 	Shuffle the card pack.
 */
-const void Deck::shuffle(){
+const void Deck::shuffle()
+{
 	int shuffle_counter = 0;
 	std::cout << "\nShuffling the Deck, Please Wait... " << std::endl;
 
@@ -46,14 +47,15 @@ const void Deck::shuffle(){
 		time(&check);
 		elapsed = difftime(check, start);
 	}
-	std::cout << "\nShuffled cards " << shuffle_counter << " times in " << ShuffleTime << " second(s)!\n";
+	std::cout << "\nShuffled cards " << shuffle_counter << " times in " << ShuffleTime << " second(s)!\n\n";
 }
 
 /*
 	@build
 	Build a new deck of cards based on the deckCount.
 */
-const void Deck::build(){
+const void Deck::build()
+{
 	deck.clear();
 	names.clear();
 	for(int i = 0; i < deckCount; ++i){
@@ -118,7 +120,8 @@ const void Deck::build(){
 	@draw
 	Draws a card from the back of the deck vector.
 */
-const FACE Deck::draw(){
+const FACE Deck::draw()
+{
 	if(deck.size() <= 12){
 		std::cout << "\n\nDeck low on cards. Rebuilding.\n";
 		build();
@@ -134,7 +137,8 @@ const FACE Deck::draw(){
 	Takes the name of a card from the names string vector 
 	(name matches the value in the deck vector that is also drawn when this is called)
 */
-const std::string Deck::drawName(){
+const std::string Deck::drawName()
+{
 	std::string cardDrawn = names.back();
 	names.pop_back();
 	return cardDrawn;
