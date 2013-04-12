@@ -226,10 +226,10 @@ const void Game::displayCards(const bool displayDealerHand) const
 		for(int i = 0; i < dealer.getHandSize(0); ++i){
 			if(i == 1 && ((!player_stands_all) || (!dealerStands))){ //Hide second drawn card
 				std::cout << "\nHole Card: face down (hidden).";
-				++tmp;
 			}
 			else{
 				std::cout << "\nUpcard " << (tmp) <<  ": " << dealer.displayCardName(0, i);
+				++tmp;
 			}
 		}
 	}

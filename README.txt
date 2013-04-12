@@ -1,14 +1,14 @@
 PROGRAM DESCRIPTION
 Currently, this game consists of a simple implementation of the card game "Blackjack," a.k.a. "21".
-Upon executing the program, the user will be presented with a game menu. Current options are: New Game, or Exit.
+Upon executing the program, the user will be presented with a game menu. Current choices are: New Game, Instructions, Options or Exit. Explore these choices at your leisure in game, as they are self-explanatory.
 After selecting New Game, the game deck is built as a stack of 312 cards (6 decks of cards, 52 x 6 = 312). 
 The deck is then immediately shuffled.
 The player (you!) is then allowed to ante up for the current round. The starting wallet amount is 30,000 (of some unmarked currency/poker chips).
 After placing a bet, the player and dealer each draw two cards. The dealer's second card is hidden until the end of the round.
-The player can then choose to either hit, stand, double down (on the first turn only), or change the value of ACE cards in their hand*, if one or more exist.
+The player can then choose to either hit, stand, double down (on the first turn only), split a hand (if possible), or change the value of ACE cards in their hand*, if one or more exist.
 To draw a card, choose hit. When you do not want to draw any more cards, select stand. Selecting stand will prevent you from any further action this round, except under special circumstances*.
-The dealer will stand on 17, but not on a hand of a lower total value.
-At the end of every turn, the hands of both parties are compared against all win/lose/tie conditions. Some conditions will not be checked until both the player and dealer make a stand.
+The dealer will stand on a hard OR soft 17, but not on a hand of a lower total value.
+At the end of every turn, the hands of both parties are compared against all win/lose/tie conditions. Some conditions will not be checked until both the player and dealer make a stand on all hands.
 If a round is over (one or both parties have won/lost/tied), then the option is given to play again (with an updated wallet based on the outcome of this round), or to exit the program now (by selecting not to play again, you are selecting to exit, since there is no other functionality to this program).
 If you run out of currency, you will be presented with the starting game menu again, so you may choose to start a new game with a refreshed wallet, and a new deck of cards.
 

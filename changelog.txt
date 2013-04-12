@@ -1,3 +1,7 @@
+build 17 (4/12/13)
++ Updated project README.
++ Fixed dealer upcard labeling bug (was previously showing Upcard 1:...Upcard 1:... etc. instead of Upcard 1:... Upcard 2:... etc..
+
 build 16 (4/12/13)
 + Added an Options menu to the list of main menu choices.
 

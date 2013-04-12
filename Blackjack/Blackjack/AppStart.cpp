@@ -50,7 +50,7 @@ void displayOptions()
 			break;
 		case 2:
 			system("cls");
-			std::cout << "\nVersion: build 16 (alpha)";
+			std::cout << "\nVersion: build 17 (alpha)";
 			valid = false;
 			break;
 		case 3:
