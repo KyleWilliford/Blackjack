@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Kyle's Blackjack Game", "Kyle's Blackjack Game\Kyle's Blackjack Game.vdproj", "{F32E4D9F-7938-4A08-83FF-50F2653C6000}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F32E4D9F-7938-4A08-83FF-50F2653C6000}.Debug|Default.ActiveCfg = Debug
+		{F32E4D9F-7938-4A08-83FF-50F2653C6000}.Debug|Default.Build.0 = Debug
+		{F32E4D9F-7938-4A08-83FF-50F2653C6000}.Release|Default.ActiveCfg = Release
+		{F32E4D9F-7938-4A08-83FF-50F2653C6000}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

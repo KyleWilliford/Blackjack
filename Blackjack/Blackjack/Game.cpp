@@ -417,10 +417,7 @@ const void Game::dealerAI()
 	if(!dealerStands){
 		//Determine dealer's move
 		int dealerTotal = dealer.getHandTotal(0);
-		if(dealerTotal >= 21){
-			dealerStands = true;
-		}
-		else if(dealerTotal < 17){
+		if(dealerTotal < 17){
 			dealer.hit(0, deck);
 			std::cout << "\nDealer draws a(n) " << dealer.displayCardName(0, dealer.getHandSize(0) - 1) << ".\n";
 		}

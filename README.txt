@@ -52,7 +52,7 @@ Input validation is performed by taking user input as a string, and then either 
 This, of course, relies on the user providing the correct input choice for what they actually want to do. You can't change your mind if you wanted to stand, but accidentally chose to hit!
 
 SYSTEM REQUIREMENTS
-Windows XP/Vista/etc. (should work on other systems, but not tested)
+Windows XP/Vista/7/8
 
 "Release" EXECUTABLE RUNTIME REQUIREMENTS:
 Microsoft Visual C++ 2010 SP1 Redistributable 
@@ -64,7 +64,7 @@ An installed version of Visual Studio (2010; maybe 2012, but not tested)
 
 INSTALLATION INSTRUCTIONS
 To play the game, simply:
-1. Install the prerequisites (see above)
+1. Download and run setup.exe, or the .msi installer and then skip to step 5, OR Install the prerequisites (see above) and proceed to Step 2.
 2. navigate to https://github.com/KyleWilliford/Blackjack/blob/master/Blackjack/Release/Blackjack.exe
 3. Click "View Raw" in the center of the page.
 4. Choose a directory to store the executable.
@@ -72,13 +72,13 @@ To play the game, simply:
 6. ???
 7. Profit.
 
-You could also compile the project in VS or another IDE. 
+You could also compile the project in VS 2010 or another IDE. 
 There may be compatibility errors if you try to compile using GCC or another C compiler (not tested). I used Visual Studio 2010 to compile and test this program, on Windows 7 Ultimate, 64-bit.
 
 
 
 NOTICE:
-This is a work in progress. This is not intended for (any future) commercial release.
+This is a work in progress. This is not intended for (any) commercial release.
 Please do not use this code in any of your projects. Ask me for permission if you wish to contribute (I prefer ideas rather than code contributions, if any).
 
 You can contact me at willifordkyle@hotmail.com or via my account on Github (not checked regularly though).
