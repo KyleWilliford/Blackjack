@@ -64,7 +64,7 @@ An installed version of Visual Studio (2010; maybe 2012, but not tested)
 
 INSTALLATION INSTRUCTIONS
 To play the game, simply:
-1. Download and run setup.exe, or the .msi installer and then skip to step 5, OR Install the prerequisites (see above) and proceed to Step 2.
+1. Download and run setup.exe, or the .msi installer at https://github.com/KyleWilliford/Blackjack/blob/master/Installer/Kyle%27s%20Blackjack%20Game/Kyle%27s%20Blackjack%20Game/Release/Kyle%27s%20Blackjack%20Game.msi and then skip to step 5, OR Install the prerequisites (see above) and proceed to Step 2.
 2. navigate to https://github.com/KyleWilliford/Blackjack/blob/master/Blackjack/Release/Blackjack.exe
 3. Click "View Raw" in the center of the page.
 4. Choose a directory to store the executable.
