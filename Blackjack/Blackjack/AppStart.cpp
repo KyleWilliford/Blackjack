@@ -9,7 +9,6 @@
 #include <string>
 #include "Game.h"
 
-
 static const int x = 1024;	//window width
 static const int y = 768;	//window height
 
@@ -17,6 +16,55 @@ static const int NumberOfDecks = 6;
 static const int WalletSize = 30000;
 
 static Game *game;
+
+/*
+	@optionsMenu
+	Display a list of choices for the options menu.
+*/
+void optionsMenu()
+{
+	std::cout << "\n\nBLACKJACK!\n\nOptions Menu" << std::endl;
+	std::cout << "1: View Credits" << std::endl;
+	std::cout << "2: View Game Version Information" << std::endl;
+	std::cout << "3: Return to Main Menu" << std::endl;
+	std::cout << "Enter your choice: ";
+}
+
+/*
+	@displayOptionss
+	Parse the user's choice from the options menu.
+*/
+void displayOptions()
+{
+	bool valid = false;
+	do{
+		optionsMenu();
+		std::string s;
+		std::cin >> s;
+		int choice = atoi(s.c_str());
+		switch (choice){
+		case 1:
+			system("cls");
+			std::cout << "\nThanks for playing!\nBlackjack\nby Kyle Williford";
+			valid = false;
+			break;
+		case 2:
+			system("cls");
+			std::cout << "\nVersion: build 16 (alpha)";
+			valid = false;
+			break;
+		case 3:
+			system("cls");
+			valid = true;
+			break;
+		default:
+			//Invalid input - exit;
+			valid = false;
+			std::cout << "\nError - Invalid input. Try again.\n\n";
+			break;
+		}
+	}while(!valid);
+}
 
 /*
 	@instructionsMenu
@@ -40,9 +88,9 @@ void displayInstructions()
 	bool valid = false;
 	do{
 		instructionsMenu();
-		std::string input;
-		std::cin >> input;
-		int choice = atoi(input.c_str());
+		std::string s;
+		std::cin >> s;
+		int choice = atoi(s.c_str());
 		switch (choice){
 		case 1:
 			system("cls");
@@ -125,7 +173,8 @@ void mainMenu()
 	std::cout << "Main Menu" << std::endl;
 	std::cout << "1: New Game" << std::endl;
 	std::cout << "2: Instructions" << std::endl;
-	std::cout << "3: Exit" << std::endl;
+	std::cout << "3: Options" << std::endl;
+	std::cout << "4: Exit" << std::endl;
 	std::cout << "Enter your choice: ";
 }
 
@@ -138,9 +187,9 @@ void mainMenuChoice()
 	bool valid = false;
 	do{
 		mainMenu();
-		std::string input;
-		std::cin >> input;
-		int choice = atoi(input.c_str());
+		std::string s;
+		std::cin >> s;
+		int choice = atoi(s.c_str());
 		switch (choice){
 		case 1:
 			system("cls");
@@ -161,6 +210,11 @@ void mainMenuChoice()
 			valid = false;
 			break;
 		case 3:
+			system("cls");
+			displayOptions();
+			valid = false;
+			break;
+		case 4:
 			std::cout << "\nNow exiting.\n\n";
 			delete game;
 			game = NULL;

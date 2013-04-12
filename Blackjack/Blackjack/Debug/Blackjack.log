@@ -1,9 +1,7 @@
-﻿Build started 4/11/2013 12:01:55 PM.
-     1>Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" on node 2 (rebuild target(s)).
-     1>_PrepareForClean:
-         Deleting file "Debug\Blackjack.lastbuildstate".
-       InitializeBuildStatus:
-         Creating "Debug\Blackjack.unsuccessfulbuild" because "AlwaysCreate" was specified.
+﻿Build started 4/12/2013 1:46:13 PM.
+     1>Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Debug\Blackjack.unsuccessfulbuild".
        ClCompile:
          c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt AppStart.cpp Deck.cpp Game.cpp Hand.cpp Player.cpp Wallet.cpp
          Wallet.cpp
@@ -24,7 +22,6 @@
          Debug\Player.obj
          Debug\Wallet.obj
        Manifest:
-         Deleting file "Debug\Blackjack.exe.embed.manifest".
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Blackjack.exe.embed.manifest" /manifest Debug\Blackjack.exe.intermediate.manifest
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\Blackjack.exe.embed.manifest.res" Debug\Blackjack_manifest.rc 
        LinkEmbedManifest:
@@ -39,8 +36,8 @@
        FinalizeBuildStatus:
          Deleting file "Debug\Blackjack.unsuccessfulbuild".
          Touching "Debug\Blackjack.lastbuildstate".
-     1>Done Building Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" (rebuild target(s)).
+     1>Done Building Project "C:\Users\Kyle\Blackjack\Blackjack\Blackjack\Blackjack.vcxproj" (build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:07.75
+Time Elapsed 00:00:08.22

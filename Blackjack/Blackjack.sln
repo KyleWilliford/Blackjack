@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blackjack", "Blackjack\Blackjack.vcxproj", "{44069EC6-2A82-45A7-BED5-43A833477BCA}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Kyle's Blackjack Game", "..\Installer\Kyle's Blackjack Game\Kyle's Blackjack Game\Kyle's Blackjack Game.vdproj", "{B7D99391-D679-461D-8981-CFFDF6853A34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{44069EC6-2A82-45A7-BED5-43A833477BCA}.Debug|Win32.Build.0 = Debug|Win32
 		{44069EC6-2A82-45A7-BED5-43A833477BCA}.Release|Win32.ActiveCfg = Release|Win32
 		{44069EC6-2A82-45A7-BED5-43A833477BCA}.Release|Win32.Build.0 = Release|Win32
+		{B7D99391-D679-461D-8981-CFFDF6853A34}.Debug|Win32.ActiveCfg = Debug
+		{B7D99391-D679-461D-8981-CFFDF6853A34}.Debug|Win32.Build.0 = Debug
+		{B7D99391-D679-461D-8981-CFFDF6853A34}.Release|Win32.ActiveCfg = Release
+		{B7D99391-D679-461D-8981-CFFDF6853A34}.Release|Win32.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
