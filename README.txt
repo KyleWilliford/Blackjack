@@ -64,7 +64,7 @@ An installed version of Visual Studio (2010; maybe 2012, but not tested)
 
 INSTALLATION INSTRUCTIONS
 To play the game, simply:
-1. Download and run setup.exe, or the msi installer located in the Installer/Release directory and then skip to step 5, OR Install the prerequisites (see above) and proceed to Step 2.
+1. Download and run setup.exe, or the msi installer located in the Installer/Release directory, AND the VC++ 2010 Redistributable prereqs, and then skip to step 5, OR Install the prerequisites (see above) and proceed to Step 2.
 2. navigate to https://github.com/KyleWilliford/Blackjack/blob/master/Blackjack/Release/Blackjack.exe
 3. Click "View Raw" in the center of the page.
 4. Choose a directory to store the executable.
